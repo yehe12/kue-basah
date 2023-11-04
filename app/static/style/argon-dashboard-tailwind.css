@@ -24,6 +24,18 @@
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
 
+.bg-custom-yellow {
+  background-color: #FFCE51;
+}
+
+.bg-custom-pink {
+  background-color: #F9E9E3
+}
+
+.bg-custom-red {
+  background: #CD0909;
+}
+
 *,
 ::before,
 ::after {
