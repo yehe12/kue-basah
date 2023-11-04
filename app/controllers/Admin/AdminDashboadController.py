@@ -8,9 +8,7 @@ def adminDashboard():
     if 'loggedin' in session:
         if session['role'] == 2 :
 
-            count_users = User().countUser()
-
-            return render_template('admin/admin_dashboard.html', count_user=data_user)
+            return render_template('admin/admin_dashboard.html')
 
         else :
 

@@ -8,9 +8,7 @@ def bossDashboard():
     if 'loggedin' in session:
         if session['role'] == 1 :
 
-            count_users = User().countUser()
-
-            return render_template('boss/boss_dashboard.html', count_user=data_user, count_cost_total=data_cost_total)
+            return render_template('boss/boss_dashboard.html')
 
         else :
 
