@@ -1,0 +1,125 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+
+<style>
+	/*Overrides for Tailwind CSS */
+
+	/*Form fields*/
+	.dataTables_wrapper select,
+	.dataTables_wrapper .dataTables_filter input {
+		color:rgb(95, 95, 95);
+		/*text-gray-700*/
+		/*pl-2*/
+		line-height: 1.25;
+		/*leading-tight*/
+		border-width: 2px;
+		/*border-2*/
+		border-radius: .50rem;
+		border-color: #edf2f7;
+		/*border-gray-200*/
+		background-color: #edf2f7;
+		/*bg-gray-200*/
+		outline-width: 0px;
+	}
+
+	/*Row Hover*/
+	table.dataTable.hover tbody tr:hover,
+	table.dataTable.display tbody tr:hover {
+		background-color: #ebf4ff;
+		/*bg-indigo-100*/
+	}
+
+	/*Pagination Buttons*/
+	.dataTables_wrapper .dataTables_paginate .paginate_button {
+		
+		font-weight: 600;
+		/*font-bold*/
+		border-radius: .50rem;
+		/*rounded*/
+		border: 1px solid transparent;
+		/*border border-transparent*/
+		padding-right: 8px;
+		padding-left: 8px;
+		margin-right: 4px;
+
+		font-size: 0.875rem; /* 14px */
+		line-height: 1.25rem; /* 20px */
+	}
+
+	/*Pagination Buttons - Current selected */
+	.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+		color: #fff !important;
+		/*text-white*/
+		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+		/*shadow*/
+		font-weight: 600;
+		/*font-bold*/
+		border-radius: .50rem;
+		/*rounded*/
+		background: #667eea !important;
+		/*bg-indigo-500*/
+		border: 1px solid transparent;
+		/*border border-transparent*/
+
+		font-size: 0.875rem; /* 14px */
+		line-height: 1.25rem; /* 20px */
+	}
+
+	/*Pagination Buttons - Hover */
+	.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+		color: #fff !important;
+		/*text-white*/
+		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+		/*shadow*/
+		font-weight: 600;
+		/*rounded*/
+		background: #667eea !important;
+		/*bg-indigo-500*/
+    	border: 1px solid transparent;
+		/*border border-transparent*/
+
+		font-size: 0.875rem; /* 14px */
+		line-height: 1.25rem; /* 20px */
+	}
+
+	/*Add padding to bottom border */
+	table.dataTable.no-footer {
+		border-bottom: 1px solid #e2e8f0;
+		/*border-b-1 border-gray-300*/
+		margin-top: 0.75em;
+		margin-bottom: 0.75em;
+	}
+
+	/*Change colour of responsive icon*/
+	table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
+	table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+		background-color: #667eea !important;
+		/*bg-indigo-500*/
+	}
+
+	.dataTables_info {
+		padding-left: 24px;
+		margin-bottom: 4px;
+	}
+
+	.dataTables_paginate {
+		padding-right: 20px;
+	}
+
+	.dataTables_length {
+		margin-left: 24px;
+		margin-bottom: 8px;
+	}
+
+	select[name="tabelku_length"] {
+		background: transparent;
+	}
+
+	.dataTables_filter {
+    margin-right: 24px;
+    margin-bottom: 8px;
+	}
+
+	.dataTables_empty {
+		padding-left: 16px;
+	}
+</style>
