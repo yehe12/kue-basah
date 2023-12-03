@@ -35,41 +35,27 @@
 			<div class="flex-none w-full max-w-full px-3">
 				<div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl rounded-2xl bg-clip-border">
 					<div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-						<form action="" method="POST" autocomplete="off">
+						<form action="{{ url_for('bossDataSupplierStore') }}" method="POST" autocomplete="off">
 							<div class="flex flex-wrap -mx-3 pb-6">
-								<input type="hidden" name="user_id" id="user_id" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-red-500 focus:outline-none" value="{{ user_id }}" aria-label="user_id" />
 								<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
-									<label for="device_type" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Device Type</label>
-									<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" id="device_type" required name="device_type">
-										<option class="dropdown-item " name="device_type" value="Computer"> Computer </option>
-										<option class="dropdown-item" name="device_type" value="Laptop"> Laptop </option>
+									<label for="name" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Nama Supplier</label>
+									<input type="text" name="nama_suplier" id="nama_suplier" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="nama_suplier" />
+								</div>
+								<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+									<label for="nomor_telepon" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Nomer Telepon</label>
+									<input type="text" name="nomor_telepon" id="nomor_telepon" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="nomor_telepon" />
+								</div>
+								<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+									<label for="status" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Status</label>
+									<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" id="status" required name="status">
+										<option class="dropdown-item " name="status" value="Aktif"> Aktif </option>
+										<option class="dropdown-item" name="status" value="Tidak Aktif"> Tidak Aktif </option>
 									</select>
 								</div>
 								<div class="w-full max-w-full px-3 shrink-0 md:w-8/12 md:flex-0">
-									<label for="name" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Damage Indication </label>
-									<button id="dropdownCheckboxButton" data-dropdown-toggle="dropdownDefaultCheckbox" type="button" class="flex w-full py-3 mb-0 leading-normal item-center focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600">Damage Indication
-										<div class="w-32 ">
-											<svg class="w-4 h-4 m-auto" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-										</div>
-									</button>
-									<div id="dropdownDefaultCheckbox" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow">
-										<ul class="p-3 space-y-3 text-sm text-gray-700" aria-labelledby="dropdownCheckboxButton">
-										{% if damage_indications %}
-											{% for damage_indication in damage_indications  %}
-												<div class="flex items-center">
-													<input name="damage_indication" id="damage_indication" type="checkbox" value="{{ damage_indication.1 }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-													<label for="damage_indication" class="ml-2 text-sm font-medium text-gray-900">{{ damage_indication.1 }} - [ Estimated Repair Time : {{ damage_indication.2 }} Hours ]</label>
-												</div>
-											{% endfor %}
-										{% endif %}
-										</ul>
-									</div>
+									<label for="alamat" class="inline-block mt-7 mb-2 ml-1 font-bold text-xs text-slate-700">Alamat</label>
+									<input type="text" name="alamat" id="alamat" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="alamat" />
 								</div>
-								<div class="mt-6 w-full max-w-full px-3 shrink-0 md:w-8/12 md:flex-0">
-									<label for="name" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Damage Indication </label>
-									<textarea id="note_from_user" name="note_from_user" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Leave a note..."></textarea>
-								</div>
-							
 								<div class="mt-5 w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
 									<button type="submit" class="inline-block w-full py-3 mt-8 mb-0 font-bold leading-normal text-center text-white align-middle transition-all bg-blue-500 border-0 rounded-lg cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25">Add</button>
 								</div>
@@ -106,16 +92,10 @@
 													<span class="mb-0 text-sm font-semibold leading-tight">{{ data.3 }}</span>
 												</td>
 												<td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span	
-														{% if data.4 == 'dalam antrian' %} 
-															class="bg-slate-500 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"
-														{% elif data.4 == 'dalam perbaikan' %}
-															class="bg-gradient-to-tl from-orange-500 to-orange-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"
-														{% elif data.4 == 'selesai' %} 
+													<span
+														{% if data.4 == 'Aktif' %}
 															class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"
-														{% elif data.4 == 'diambil' %}
-															class="bg-gradient-to-tl from-blue-500 to-cyan-500 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"
-														{% elif data.4 == 'dibatalkan' %}
+														{% elif data.4 == 'Tidak Aktif' %}
 															class="bg-gradient-to-tl from-red-500 to-red-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"
 														{% endif %}
 														>
