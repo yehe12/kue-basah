@@ -3,15 +3,6 @@ from app import app
 from app.config.db import *
 
 class User:
-	
-    def selectSupplier(self):
-        
-        cursor = mysql.get_db().cursor()
-        dataSupplier = "SELECT * FROM supplier;"
-        cursor.execute(dataSupplier)
-        dataSupplier = cursor.fetchall()
-
-        return dataSupplier
     
     def selectLogin(self, username, password):
         self.username = username
