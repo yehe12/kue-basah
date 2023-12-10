@@ -68,22 +68,22 @@ if (document.querySelector(".github-button")) {
   loadJS("https://buttons.github.io/buttons.js", true);
 }
 
-function loadJS(FILE_URL, async) {
-  let dynamicScript = document.createElement("script");
+// function loadJS(FILE_URL, async) {
+//   let dynamicScript = document.createElement("script");
 
-  dynamicScript.setAttribute("src", FILE_URL);
-  dynamicScript.setAttribute("type", "text/javascript");
-  dynamicScript.setAttribute("async", async);
+//   dynamicScript.setAttribute("src", FILE_URL);
+//   dynamicScript.setAttribute("type", "text/javascript");
+//   dynamicScript.setAttribute("async", async);
 
-  document.head.appendChild(dynamicScript);
-}
+//   document.head.appendChild(dynamicScript);
+// }
 
-function loadStylesheet(FILE_URL) {
-  let dynamicStylesheet = document.createElement("link");
+// function loadStylesheet(FILE_URL) {
+//   let dynamicStylesheet = document.createElement("link");
 
-  dynamicStylesheet.setAttribute("href", FILE_URL);
-  dynamicStylesheet.setAttribute("type", "text/css");
-  dynamicStylesheet.setAttribute("rel", "stylesheet");
+//   dynamicStylesheet.setAttribute("href", FILE_URL);
+//   dynamicStylesheet.setAttribute("type", "text/css");
+//   dynamicStylesheet.setAttribute("rel", "stylesheet");
 
-  document.head.appendChild(dynamicStylesheet);
-}
+//   document.head.appendChild(dynamicStylesheet);
+// }
