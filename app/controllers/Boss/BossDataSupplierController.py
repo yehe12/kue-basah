@@ -40,10 +40,8 @@ def bossDataSupplierStore():
 
 @app.route('/boss/data-supplier/detail/<int:id>', methods = ['GET'])
 def bossDataSupplierOne(id):
-
     if 'loggedin' in session:
         if session['role'] == 1 :
-            
             getSupplierOne = Supplier().selectSupplierOne(id)
 
             return render_template('boss/boss_data_supplier_detail.html', dataSupplierOne=getSupplierOne)
@@ -55,7 +53,6 @@ def bossDataSupplierOne(id):
 
 @app.route('/boss/data-supplier/detail/update', methods =['POST'])
 def bossDataSupplierUpdate():
-
     if 'loggedin' in session:
         if session['role'] == 1 :
             if request.method == 'POST' and 'nama_suplier' in request.form and 'nomor_telepon' in request.form and 'status' in request.form and 'alamat' in request.form:
@@ -68,6 +65,19 @@ def bossDataSupplierUpdate():
                 Supplier().updateSupplier(id, nama_suplier, nomor_telepon, status, alamat)
 
                 return redirect(url_for('bossDataSupplier'))
+
+        else :
+            return redirect(url_for('dashboard'))
+        
+    return redirect(url_for('login'))
+
+@app.route('/boss/data-supplier/detail/destroy/<int:id>', methods = ['GET'])
+def bossDataSupplierDelete(id):
+    if 'loggedin' in session:
+        if session['role'] == 1 :
+            Supplier().deleteSupplier(id)
+
+            return redirect(url_for('bossDataSupplier'))
 
         else :
             return redirect(url_for('dashboard'))
