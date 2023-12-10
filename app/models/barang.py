@@ -12,15 +12,15 @@ class Barang:
 
         return dataBarang
     
-    def insertBarang(self, nama_suplier, nomor_telepon, status, alamat):
-        self.nama_suplier = nama_suplier
-        self.nomor_telepon = nomor_telepon
-        self.status = status
-        self.alamat = alamat
+    def insertBarang(self, id_supplier, nama_barang, harga_jual, harga_beli):
+        self.id_supplier = id_supplier
+        self.nama_barang = nama_barang
+        self.harga_jual = harga_jual
+        self.harga_beli = harga_beli
 
         cursor = mysql.get_db().cursor()
-        insert_query = "INSERT INTO barang (nama_suplier, nomor_telepon, alamat, status, create_at) VALUES (%s, %s, %s, %s, now())"
-        cursor.execute(insert_query, (self.nama_suplier, self.nomor_telepon, self.alamat, self.status))
+        insert_query = "INSERT INTO barang (id_supplier, nama_barang, harga_jual, harga_beli, create_at) VALUES (%s, %s, %s, %s, now())"
+        cursor.execute(insert_query, (self.id_supplier, self.nama_barang, self.harga_jual, self.harga_beli))
         mysql.get_db().commit()
         cursor.close()
         
