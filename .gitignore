@@ -10,3 +10,7 @@ app/controllers/Boss/__pycache__/__init__.cpython-312.pyc
 app/controllers/Admin/__pycache__/AdminDashboadController.cpython-312.pyc
 app/controllers/Boss/__pycache__/BossDashboardController.cpython-312.pyc
 app/controllers/Auth/__pycache__/AuthController.cpython-312.pyc
+app/controllers/Boss/__pycache__/BossDataItemController.cpython-312.pyc
+app/controllers/Boss/__pycache__/BossDataSupplierController.cpython-312.pyc
+app/controllers/__pycache__/chart.cpython-312.pyc
+app/models/__pycache__/supplier.cpython-312.pyc

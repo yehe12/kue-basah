@@ -2,38 +2,39 @@ from flask import session
 from app import app
 from app.config.db import *
 
-class Barang:
+class Supplier:
 	
-    def selectBarang(self):
+    def selectSupplier(self):
         cursor = mysql.get_db().cursor()
-        select_query = "SELECT * from barang INNER JOIN supplier ON barang.id_supplier=supplier.id;"
+        select_query = "SELECT * FROM supplier;"
+        # dataSupplier = "SELECT nama_suplier, umur FROM supplier;"
         cursor.execute(select_query)
-        dataBarang = cursor.fetchall()
+        dataSupplier = cursor.fetchall()
 
-        return dataBarang
+        return dataSupplier
     
-    def insertBarang(self, id_supplier, nama_barang, harga_jual, harga_beli):
-        self.id_supplier = id_supplier
-        self.nama_barang = nama_barang
-        self.harga_jual = harga_jual
-        self.harga_beli = harga_beli
+    def insertSupplier(self, nama_suplier, nomor_telepon, status, alamat):
+        self.nama_suplier = nama_suplier
+        self.nomor_telepon = nomor_telepon
+        self.status = status
+        self.alamat = alamat
 
         cursor = mysql.get_db().cursor()
-        insert_query = "INSERT INTO barang (id_supplier, nama_barang, harga_jual, harga_beli, create_at) VALUES (%s, %s, %s, %s, now())"
-        cursor.execute(insert_query, (self.id_supplier, self.nama_barang, self.harga_jual, self.harga_beli))
+        insert_query = "INSERT INTO supplier (nama_suplier, nomor_telepon, alamat, status, create_at) VALUES (%s, %s, %s, %s, now())"
+        cursor.execute(insert_query, (self.nama_suplier, self.nomor_telepon, self.alamat, self.status))
         mysql.get_db().commit()
         cursor.close()
         
-    def selectBarangOne(self, id):
+    def selectSupplierOne(self, id):
         self.id = id
         cursor = mysql.get_db().cursor()
-        select_one = "SELECT * from barang WHERE id=%s"
+        select_one = "SELECT * from supplier WHERE id=%s"
         cursor.execute(select_one, (self.id))
-        dataBarangOne = cursor.fetchone()
+        dataSupplierOne = cursor.fetchone()
 
-        return dataBarangOne
+        return dataSupplierOne
 
-    def updateBarang(self, id, nama_suplier, nomor_telepon, status, alamat):
+    def updateSupplier(self, id, nama_suplier, nomor_telepon, status, alamat):
 
         self.id = id
         self.nama_suplier = nama_suplier
@@ -42,17 +43,17 @@ class Barang:
         self.alamat = alamat
 
         cursor = mysql.get_db().cursor()
-        update_query = "UPDATE barang SET nama_suplier = %s, nomor_telepon = %s, status = %s, alamat = %s WHERE id = %s"
+        update_query = "UPDATE supplier SET nama_suplier = %s, nomor_telepon = %s, status = %s, alamat = %s WHERE id = %s"
         cursor.execute(update_query, (self.nama_suplier, self.nomor_telepon, self.status, self.alamat, self.id))
         mysql.get_db().commit()
         cursor.close()
 
-    def deleteBarang(self, id):
+    def deleteSupplier(self, id):
         self.id = id
         cursor = mysql.get_db().cursor()
         
         # Pengecekan apakah ada referensi foreign key yang masih aktif
-        check_query = "SELECT COUNT(*) FROM barang WHERE id_barang = %s"
+        check_query = "SELECT COUNT(*) FROM barang WHERE id_supplier = %s"
         cursor.execute(check_query, (self.id,))
         count = cursor.fetchone()[0]
         
@@ -60,7 +61,7 @@ class Barang:
             return count
         
         else:
-            delete_query = "DELETE FROM barang WHERE id=%s"
+            delete_query = "DELETE FROM supplier WHERE id=%s"
             cursor.execute(delete_query, (self.id))
             mysql.get_db().commit()
             cursor.close()
