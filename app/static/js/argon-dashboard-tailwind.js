@@ -22,8 +22,8 @@ if (!aux.includes("pages")) {
   page = "dashboard";
 }
 
-loadStylesheet(to_build + "assets/css/perfect-scrollbar.css");
-loadJS(to_build + "assets/js/perfect-scrollbar.js", true);
+// loadStylesheet(to_build + "assets/css/perfect-scrollbar.css");
+// loadJS(to_build + "assets/js/perfect-scrollbar.js", true);
 
 if (document.querySelector("[slider]")) {
   loadJS(to_build + "assets/js/carousel.js", true);
@@ -53,10 +53,10 @@ if (document.querySelector("[fixed-plugin]")) {
 
 if (document.querySelector("[navbar-main]") || document.querySelector("[navbar-profile]")) {
   if(document.querySelector("[navbar-main]")){
-    loadJS(to_build + "assets/js/navbar-sticky.js", true);
+    // loadJS(to_build + "assets/js/navbar-sticky.js", true);
   }
   if (document.querySelector("aside")) {
-    loadJS(to_build + "assets/js/sidenav-burger.js", true);
+    // loadJS(to_build + "assets/js/sidenav-burger.js", true);
   }
 }
 

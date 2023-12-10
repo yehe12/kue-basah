@@ -51,7 +51,24 @@ class Supplier:
     def deleteSupplier(self, id):
         self.id = id
         cursor = mysql.get_db().cursor()
-        delete_query = "DELETE FROM supplier WHERE id=%s"
-        cursor.execute(delete_query, (self.id))
-        mysql.get_db().commit()
-        cursor.close()
+        
+        # Pengecekan apakah ada referensi foreign key yang masih aktif
+        check_query = "SELECT COUNT(*) FROM barang WHERE id_supplier = %s"
+        cursor.execute(check_query, (self.id,))
+        count = cursor.fetchone()[0]
+        
+        if count > 0:
+            return count
+        
+        else:
+            delete_query = "DELETE FROM supplier WHERE id=%s"
+            cursor.execute(delete_query, (self.id))
+            mysql.get_db().commit()
+            cursor.close()
+            
+            return count
+        
+        
+
+        
+        

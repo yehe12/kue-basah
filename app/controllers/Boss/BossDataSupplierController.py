@@ -8,8 +8,9 @@ def bossDataSupplier():
         if session['role'] == 1 :
             
             getSupplier = Supplier().selectSupplier()
-
+            
             return render_template('boss/boss_data_supplier.html', dataSupplier=getSupplier)
+        
         else :
             return redirect(url_for('dashboard'))
         
@@ -27,12 +28,7 @@ def bossDataSupplierStore():
             Supplier().insertSupplier(nama_suplier, nomor_telepon, status, alamat)
 
             return redirect(url_for('bossDataSupplier'))
-
-        else:
-            mesage = 'Lengkapi Form anda !'
-
-            return render_template('boss/boss_data_supplier.html', mesage = mesage)
-
+        
     else :
         return redirect(url_for('dashboard'))
 
@@ -71,13 +67,19 @@ def bossDataSupplierUpdate():
         
     return redirect(url_for('login'))
 
-@app.route('/boss/data-supplier/detail/destroy/<int:id>', methods = ['GET'])
+@app.route('/boss/data-supplier/destroy/<int:id>', methods = ['GET'])
 def bossDataSupplierDelete(id):
     if 'loggedin' in session:
         if session['role'] == 1 :
-            Supplier().deleteSupplier(id)
-
-            return redirect(url_for('bossDataSupplier'))
+            getSupplier = Supplier().selectSupplier()
+            data = Supplier().deleteSupplier(id)
+            
+            if data > 0:
+                mesage = 'Tidak dapat menghapus supplier karena masih terdapat data Barang!'
+                return render_template('boss/boss_data_supplier.html', dataSupplier=getSupplier, mesage = mesage)
+            
+            else:
+                return redirect(url_for('bossDataSupplier'))
 
         else :
             return redirect(url_for('dashboard'))
