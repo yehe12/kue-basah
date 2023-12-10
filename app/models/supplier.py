@@ -6,7 +6,7 @@ class Supplier:
 	
     def selectSupplier(self):
         cursor = mysql.get_db().cursor()
-        select_query = "SELECT * FROM supplier ORDER BY create_at DESC;"
+        select_query = "SELECT * FROM supplier;"
         # dataSupplier = "SELECT nama_suplier, umur FROM supplier;"
         cursor.execute(select_query)
         dataSupplier = cursor.fetchall()
