@@ -79,7 +79,7 @@ def bossDataBarangDelete(id):
             data = Barang().deleteBarang(id)
             
             if data > 0:
-                mesage = 'Tidak dapat menghapus barang karena masih terdapat data Barang!'
+                mesage = 'Tidak dapat menghapus barang karena masih terdapat data Pengiriman atau Penjualan!'
                 return render_template('boss/boss_data_barang.html', dataBarang=getBarang, mesage = mesage)
             
             else:

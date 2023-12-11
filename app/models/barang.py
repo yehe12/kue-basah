@@ -52,7 +52,10 @@ class Barang:
         cursor = mysql.get_db().cursor()
         
         # Pengecekan apakah ada referensi foreign key yang masih aktif
-        check_query = "SELECT COUNT(*) FROM pengiriman WHERE id_barang = %s"
+        check_query = "SELECT COUNT(*) FROM penjualan WHERE id_barang = %s"
+        if check_query == 0:
+            check_query = "SELECT COUNT(*) FROM pengiriman WHERE id_barang = %s"
+            
         cursor.execute(check_query, (self.id,))
         count = cursor.fetchone()[0]
         
