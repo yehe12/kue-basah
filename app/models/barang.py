@@ -33,17 +33,17 @@ class Barang:
 
         return dataBarangOne
 
-    def updateBarang(self, id, nama_suplier, nomor_telepon, status, alamat):
+    def updateBarang(self, id, id_supplier, nama_barang, harga_jual, harga_beli):
 
         self.id = id
-        self.nama_suplier = nama_suplier
-        self.nomor_telepon = nomor_telepon
-        self.status = status
-        self.alamat = alamat
+        self.id_supplier = id_supplier
+        self.nama_barang = nama_barang
+        self.harga_jual = harga_jual
+        self.harga_beli = harga_beli
 
         cursor = mysql.get_db().cursor()
-        update_query = "UPDATE barang SET nama_suplier = %s, nomor_telepon = %s, status = %s, alamat = %s WHERE id = %s"
-        cursor.execute(update_query, (self.nama_suplier, self.nomor_telepon, self.status, self.alamat, self.id))
+        update_query = "UPDATE barang SET id_supplier = %s, nama_barang = %s, harga_jual = %s, harga_beli = %s WHERE id = %s"
+        cursor.execute(update_query, (self.id_supplier, self.nama_barang, self.harga_jual, self.harga_beli, self.id))
         mysql.get_db().commit()
         cursor.close()
 
@@ -52,7 +52,7 @@ class Barang:
         cursor = mysql.get_db().cursor()
         
         # Pengecekan apakah ada referensi foreign key yang masih aktif
-        check_query = "SELECT COUNT(*) FROM barang WHERE id_barang = %s"
+        check_query = "SELECT COUNT(*) FROM pengiriman WHERE id_barang = %s"
         cursor.execute(check_query, (self.id,))
         count = cursor.fetchone()[0]
         
