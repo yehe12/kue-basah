@@ -29,8 +29,6 @@ def bossDataBarangStore():
 
             Barang().insertBarang(id_supplier, nama_barang, harga_jual, harga_beli)
 
-            print("ini jalan cok")
-            
             return redirect(url_for('bossDataBarang'))
         
     else :
