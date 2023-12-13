@@ -11,8 +11,9 @@ def bossDataPengiriman():
             
             getPengiriman = Pengiriman().selectPengiriman()
             getSupplier = Supplier().selectSupplier()
+            getBarang = Barang().selectBarang()
             
-            return render_template('boss/boss_data_pengiriman.html', dataPengiriman=getPengiriman, dataSupplier=getSupplier)
+            return render_template('boss/boss_data_pengiriman.html', dataPengiriman=getPengiriman, dataSupplier=getSupplier, dataBarang=getBarang)
         
         else :
             return redirect(url_for('dashboard'))
@@ -22,16 +23,19 @@ def bossDataPengiriman():
 @app.route('/boss/data-pengiriman/store', methods=['POST'])
 def bossDataPengirimanStore():
     if session['role'] == 1:
-        if request.method == 'POST' and 'id_supplier' in request.form and 'nama_barang' in request.form and 'harga_jual' in request.form and 'harga_beli' in request.form:
-            id_supplier = request.form.getlist('id_supplier')
-            nama_barang = request.form['nama_barang']
-            harga_jual = request.form['harga_jual']
-            harga_beli = request.form['harga_beli']
-
-            Pengiriman().insertPengiriman(id_supplier, nama_barang, harga_jual, harga_beli)
-
-            print("ini jalan cok")
+        if request.method == 'POST' and 'id_barang' in request.form and 'stok' in request.form and 'sisa' in request.form and 'laku' in request.form:
+            id_barang = request.form.getlist('id_barang')
+            stok = request.form['stok']
+            sisa = request.form['sisa']
+            laku = request.form['laku']
             
+            print("ini jalan id_barang ", id_barang)
+            print("ini jalan stok ", stok)
+            print("ini jalan sisa ", sisa)
+            print("ini jalan laku ", laku)
+
+            Pengiriman().insertPengiriman(id_barang, stok, sisa, laku)
+
             return redirect(url_for('bossDataPengiriman'))
         
     else :

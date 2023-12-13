@@ -6,21 +6,21 @@ class Pengiriman:
 	
     def selectPengiriman(self):
         cursor = mysql.get_db().cursor()
-        select_query = "SELECT * from pengiriman"
+        select_query = "SELECT * from pengiriman INNER JOIN barang ON pengiriman.id_barang=barang.id INNER JOIN supplier ON barang.id_supplier = supplier.id"
         cursor.execute(select_query)
         dataPengiriman = cursor.fetchall()
 
         return dataPengiriman
     
-    def insertPengiriman(self, id_supplier, nama_barang, harga_jual, harga_beli):
-        self.id_supplier = id_supplier
-        self.nama_barang = nama_barang
-        self.harga_jual = harga_jual
-        self.harga_beli = harga_beli
+    def insertPengiriman(self, id_barang, stok, sisa, laku):
+        self.id_barang = id_barang
+        self.stok = stok
+        self.sisa = sisa
+        self.laku = laku
 
         cursor = mysql.get_db().cursor()
-        insert_query = "INSERT INTO barang (id_supplier, nama_barang, harga_jual, harga_beli, create_at) VALUES (%s, %s, %s, %s, now())"
-        cursor.execute(insert_query, (self.id_supplier, self.nama_barang, self.harga_jual, self.harga_beli))
+        insert_query = "INSERT INTO pengiriman (id_barang, stok, sisa, laku, create_at) VALUES (%s, %s, %s, %s, now())"
+        cursor.execute(insert_query, (self.id_barang, self.stok, self.sisa, self.laku))
         mysql.get_db().commit()
         cursor.close()
         
