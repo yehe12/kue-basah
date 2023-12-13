@@ -1,5 +1,6 @@
 from app import app
 from app.models.supplier import *
+from app.models.barang import *
 from flask import session, render_template, redirect, url_for, request
 
 @app.route('/boss/data-supplier')
@@ -39,8 +40,9 @@ def bossDataSupplierOne(id):
     if 'loggedin' in session:
         if session['role'] == 1 :
             getSupplierOne = Supplier().selectSupplierOne(id)
+            getBarangSupplier = Barang().selectBarangSupplier(id)
 
-            return render_template('boss/boss_data_supplier_detail.html', dataSupplierOne=getSupplierOne)
+            return render_template('boss/boss_data_supplier_detail.html', dataSupplierOne=getSupplierOne, dataBarangSupplier=getBarangSupplier)
 
         else :
             return redirect(url_for('dashboard'))
