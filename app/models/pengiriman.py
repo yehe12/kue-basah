@@ -2,17 +2,17 @@ from flask import session
 from app import app
 from app.config.db import *
 
-class Barang:
+class Pengiriman:
 	
-    def selectBarang(self):
+    def selectPengiriman(self):
         cursor = mysql.get_db().cursor()
-        select_query = "SELECT * from barang INNER JOIN supplier ON barang.id_supplier=supplier.id;"
+        select_query = "SELECT * from pengiriman"
         cursor.execute(select_query)
-        dataBarang = cursor.fetchall()
+        dataPengiriman = cursor.fetchall()
 
-        return dataBarang
+        return dataPengiriman
     
-    def insertBarang(self, id_supplier, nama_barang, harga_jual, harga_beli):
+    def insertPengiriman(self, id_supplier, nama_barang, harga_jual, harga_beli):
         self.id_supplier = id_supplier
         self.nama_barang = nama_barang
         self.harga_jual = harga_jual
