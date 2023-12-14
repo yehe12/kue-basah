@@ -53,7 +53,7 @@ def bossDataBarangOne(id):
 def bossDataBarangUpdate():
     if 'loggedin' in session:
         if session['role'] == 1 :
-            if request.method == 'POST' and 'id_supplier' in request.form and 'nama_barang' in request.form and 'harga_jual' in request.form and 'harga_beli' in request.form:
+            if request.method == 'POST' and 'nama_barang' in request.form and 'harga_jual' in request.form and 'harga_beli' in request.form:
                 id = request.form['id']
                 nama_barang = request.form['nama_barang']
                 harga_jual = request.form['harga_jual']
