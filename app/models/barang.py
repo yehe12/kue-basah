@@ -69,9 +69,6 @@ class Barang:
         cursor.execute(cek_pengiriman, (self.id,))
         count_pengiriman = cursor.fetchone()[0]
         
-        print("penjualan :", count_penjualan)
-        print("pengiriman :", count_pengiriman)
-        
         if count_penjualan != 0 and count_pengiriman != 0:
             delete_query = "DELETE FROM barang WHERE id=%s"
             cursor.execute(delete_query, (self.id))
