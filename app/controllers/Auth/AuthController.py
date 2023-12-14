@@ -1,8 +1,6 @@
 from app import app
 from app.models.user import * ## import kelas User dari model
 
-
-
 from flask import Flask, render_template, url_for, redirect, session, request
 from flaskext.mysql import MySQL
 

@@ -1,36 +1,135 @@
 {% extends 'base.html' %}
 
-{% block title %}Repair Detail{% endblock %}
+{% block title %}Data Supplier{% endblock %}
 
 {% block content %}
 
 {% include 'partials/datatable-style.html' %}
 
-<body class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
-		<div class="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
+<body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+	<div class="absolute w-full bg-custom-yellow min-h-75"></div>
 
-		{% include 'partials/navbar.html' %}
+	{% include 'partials/navbar.html' %}
 
-		<main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68 rounded-xl">
-		<!-- Navbar -->
-		<nav class="relative flex flex-wrap items-center justify-between px-0 pt-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="false">
-			<div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
-				<nav>
-					<!-- breadcrumb -->
-					<ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
-						<li class="text-sm leading-normal">
-							<a class="text-white opacity-50" href="">Boss</a>
-						</li>
-						<li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Supplier </li>
-					</ol>
-					<h6 class="mb-0 font-bold text-white capitalize">Data Supplier</h6>
-				</nav>
+	<main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68 rounded-xl">
+	<!-- Navbar -->
+	<nav class="relative flex flex-wrap items-center justify-between px-0 pt-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="false">
+		<div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
+			<nav>
+				<!-- breadcrumb -->
+				<ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
+					<li class="text-sm leading-normal">
+						<a class="text-white opacity-50" href="">Boss</a>
+					</li>
+					<li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Supplier </li>
+				</ol>
+				<h6 class="mb-0 font-bold text-white capitalize">Data List</h6>
+			</nav>
 
-				{% include 'partials/topnav.html' %}
+			{% include 'partials/topnav.html' %}
 
+		</div>
+	</nav>
+	<div class="w-full px-6 py-6 mx-auto">
+		<div class="flex flex-wrap -mx-3">
+			<div class="flex-none w-full max-w-full px-3">
+				<div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl rounded-2xl bg-clip-border">
+					<div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+						{% if mesage %}
+						<div class=" bg-red-500 shadow-md rounded-md mb-8">
+							<div class="inline-block w-full px-4 py-3.5 text-center text-sm text-white font-bold py-4">
+								{{ mesage }}
+							</div>
+						</div>
+						{% endif %}
+						<form action="{{ url_for('bossDataSupplierStore') }}" method="POST" autocomplete="off">
+							<div class="flex flex-wrap -mx-3 pb-6">
+								<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+									<label for="name" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Nama Supplier</label>
+									<input type="text" name="nama_suplier" id="nama_suplier" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="nama_suplier" />
+								</div>
+								<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+									<label for="nomor_telepon" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Nomer Telepon</label>
+									<input type="text" name="nomor_telepon" id="nomor_telepon" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="nomor_telepon" />
+								</div>
+								<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+									<label for="status" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Status</label>
+									<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" id="status" required name="status">
+										<option class="dropdown-item " name="status" value="Aktif"> Aktif </option>
+										<option class="dropdown-item" name="status" value="Tidak Aktif"> Tidak Aktif </option>
+									</select>
+								</div>
+								<div class="w-full max-w-full px-3 shrink-0 md:w-8/12 md:flex-0">
+									<label for="alamat" class="inline-block mt-7 mb-2 ml-1 font-bold text-xs text-slate-700">Alamat</label>
+									<input type="text" name="alamat" id="alamat" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="alamat" />
+								</div>
+								<div class="mt-5 w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+									<button type="submit" class="inline-block w-full py-3 mt-8 mb-0 font-bold leading-normal text-center text-white align-middle transition-all bg-green-500 border-0 rounded-lg cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25">Add</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="flex-auto px-0 pt-0 pb-2">
+						<div class="p-0 overflow-x-auto">
+							<table	{% if dataSupplier %}
+										id="tabelku" 
+									{% endif %}
+									
+								class="items-center w-full mb-0 align-top border-collapse text-slate-500">
+								<thead class="align-bottom ">
+									<tr>
+										<th class="border-b border-collapse shadow-none "><p class="px-6 pl-4 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Nama Supplier</p></th>
+										<th class=" border-b border-collapse shadow-none"><p class="pl-0 px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Nomor Telepon</p></th>
+										<th class="border-b border-collapse shadow-none "><p class="px-6 pl-0 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">alamat</p></th>
+										<th class="border-b border-collapse shadow-none "><p class="px-6 pl-0 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Status</p></th>
+										<th class="border-b border-collapse shadow-none "><p class="px-6 pl-0 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Action</p></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% if dataSupplier %}
+										{% for data in dataSupplier  %}
+											<tr>
+												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<span class="mb-0 text-sm font-semibold leading-tight ml-4">{{ data.1 }}</span>
+												</td>
+												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<h6 class="mb-0 text-sm font-semibold leading-tight">{{ data.2 }}</h6>
+												</td>
+												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<span class="mb-0 text-sm font-semibold leading-tight">{{ data.3 }}</span>
+												</td>
+												<td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<span
+														{% if data.4 == 'Aktif' %}
+															class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"
+														{% elif data.4 == 'Tidak Aktif' %}
+															class="bg-gradient-to-tl from-red-500 to-red-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"
+														{% endif %}
+														>
+														{{ data.4 }}
+													</span>
+												</td>
+												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<a href="{{ url_for('bossDataSupplierOne', id = data.0) }}" class="inline-block px-8 py-2 mb- ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85"> Detail </a>
+													<a href="{{ url_for('bossDataSupplierDelete', id = data.0) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="inline-block px-8 py-2 font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-red-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85"> Delete </a>
+												</td>
+											</tr>
+										{% endfor %}
+										{% else %}
+											<td>Empty Data</td>
+									{% endif %}
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
-		</nav>
-		<div> ini halaman boss data Supplier </div>
+		</div>
+
+		{% include 'partials/datatable-js.html' %}
+
+	</div>
 	</main>
 </body>
 
