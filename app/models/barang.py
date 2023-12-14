@@ -42,17 +42,16 @@ class Barang:
 
         return dataBarangOne
 
-    def updateBarang(self, id, id_supplier, nama_barang, harga_jual, harga_beli):
+    def updateBarang(self, id, nama_barang, harga_jual, harga_beli):
 
         self.id = id
-        self.id_supplier = id_supplier
         self.nama_barang = nama_barang
         self.harga_jual = harga_jual
         self.harga_beli = harga_beli
 
         cursor = mysql.get_db().cursor()
-        update_query = "UPDATE barang SET id_supplier = %s, nama_barang = %s, harga_jual = %s, harga_beli = %s WHERE id = %s"
-        cursor.execute(update_query, (self.id_supplier, self.nama_barang, self.harga_jual, self.harga_beli, self.id))
+        update_query = "UPDATE barang SET nama_barang = %s, harga_jual = %s, harga_beli = %s WHERE id = %s"
+        cursor.execute(update_query, (self.nama_barang, self.harga_jual, self.harga_beli, self.id))
         mysql.get_db().commit()
         cursor.close()
 
