@@ -12,15 +12,14 @@ class Pengiriman:
 
         return dataPengiriman
     
-    def insertPengiriman(self, id_barang, stok, sisa, laku):
+    def insertPengiriman(self, id_barang, stok, sisa):
         self.id_barang = id_barang
         self.stok = stok
         self.sisa = sisa
-        self.laku = laku
 
         cursor = mysql.get_db().cursor()
-        insert_query = "INSERT INTO pengiriman (id_barang, stok, sisa, laku, create_at) VALUES (%s, %s, %s, %s, now())"
-        cursor.execute(insert_query, (self.id_barang, self.stok, self.sisa, self.laku))
+        insert_query = "INSERT INTO pengiriman (id_barang, stok, sisa, laku, create_at) VALUES (%s, %s, %s, 0, now())"
+        cursor.execute(insert_query, (self.id_barang, self.stok, self.sisa))
         mysql.get_db().commit()
         cursor.close()
         

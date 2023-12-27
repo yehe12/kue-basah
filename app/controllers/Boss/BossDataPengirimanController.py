@@ -23,18 +23,12 @@ def bossDataPengiriman():
 @app.route('/boss/data-pengiriman/store', methods=['POST'])
 def bossDataPengirimanStore():
     if session['role'] == 1:
-        if request.method == 'POST' and 'id_barang' in request.form and 'stok' in request.form and 'sisa' in request.form and 'laku' in request.form:
+        if request.method == 'POST' and 'id_barang' in request.form and 'stok' in request.form :
             id_barang = request.form.getlist('id_barang')
             stok = request.form['stok']
-            sisa = request.form['sisa']
-            laku = request.form['laku']
-            
-            print("ini jalan id_barang ", id_barang)
-            print("ini jalan stok ", stok)
-            print("ini jalan sisa ", sisa)
-            print("ini jalan laku ", laku)
+            sisa = request.form['stok']
 
-            Pengiriman().insertPengiriman(id_barang, stok, sisa, laku)
+            Pengiriman().insertPengiriman(id_barang, stok, sisa)
 
             return redirect(url_for('bossDataPengiriman'))
         
