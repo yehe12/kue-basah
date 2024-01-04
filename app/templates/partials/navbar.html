@@ -121,6 +121,43 @@
 					<span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Data Barang</span>
 				</a>
 			</li>
+			<li class="mt-0.5 w-full">
+				{% if session.name == 'Boss' %}
+				<a class="  {% if request.path == '/boss/data-pengiriman' %}
+								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
+								bg-custom-red font-semibold text-white text-sm ease-nav-brand
+							{% else %}
+								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
+								text-sm ease-nav-brand text-slate-700
+							{% endif %}" href="{{ url_for('bossDataPengiriman') }}">
+							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
+									{%if request.path == '/boss/data-pengiriman' %}
+										text-white
+									{% else %}
+										text-blue-500
+									{% endif %}"></i>
+							</div>
+				{% elif session.name == 'Admin' %}
+				<a class="  {% if request.path == '/admin/data-pengiriman' %}
+								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
+								bg-custom-red font-semibold text-white text-sm ease-nav-brand
+							{% else %}
+								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
+								text-sm ease-nav-brand text-slate-700
+							{% endif %}" href="">
+							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
+									{%if request.path == '/admmin/data-pengiriman' %}
+										text-white
+									{% else %}
+										text-blue-500
+									{% endif %}"></i>
+							</div>
+				{% endif %}
+					<span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Data Pengiriman</span>
+				</a>
+			</li>
 		</ul>
 	</div>
 </aside>
