@@ -71,15 +71,15 @@ def bossDataPengirimanUpdate():
 def bossDataPengirimanDelete(id):
     if 'loggedin' in session:
         if session['role'] == 1 :
-            getPengiriman = Pengiriman().selectPengiriman()
-            data = Pengiriman().deletePengiriman(id)
+            # getPengiriman = Pengiriman().selectPengiriman()
+            Pengiriman().deletePengiriman(id)
             
-            if data > 0:
-                mesage = 'Tidak dapat menghapus barang karena masih terdapat data Barang!'
-                return render_template('boss/boss_data_barang.html', dataPengiriman=getPengiriman, mesage = mesage)
+            # if data > 0:
+            #     mesage = 'Tidak dapat menghapus barang karena masih terdapat data Barang!'
+            #     return render_template('boss/boss_data_pengiriman.html', dataPengiriman=getPengiriman, mesage = mesage)
             
-            else:
-                return redirect(url_for('bossDataPengiriman'))
+            # else:
+            return redirect(url_for('bossDataPengiriman'))
 
         else :
             return redirect(url_for('dashboard'))
