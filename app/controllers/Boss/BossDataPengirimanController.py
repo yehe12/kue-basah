@@ -43,7 +43,7 @@ def bossDataPengirimanOne(id):
         if session['role'] == 1 :
             getPengirimanOne = Pengiriman().selectPengirimanOne(id)
 
-            return render_template('boss/boss_data_barang_detail.html', dataPengirimanOne=getPengirimanOne)
+            return render_template('boss/boss_data_pengiriman_detail.html', dataPengirimanOne=getPengirimanOne)
 
         else :
             return redirect(url_for('dashboard'))
@@ -54,14 +54,11 @@ def bossDataPengirimanOne(id):
 def bossDataPengirimanUpdate():
     if 'loggedin' in session:
         if session['role'] == 1 :
-            if request.method == 'POST' and 'nama_suplier' in request.form and 'nomor_telepon' in request.form and 'status' in request.form and 'alamat' in request.form:
+            if request.method == 'POST' and 'stok' in request.form:
                 id = request.form['id']
-                nama_suplier = request.form['nama_suplier']
-                nomor_telepon = request.form['nomor_telepon']
-                status = request.form.getlist('status')
-                alamat = request.form['alamat']
+                stok = request.form['stok']
 
-                Pengiriman().updatePengiriman(id, nama_suplier, nomor_telepon, status, alamat)
+                Pengiriman().updatePengiriman(id, stok)
 
                 return redirect(url_for('bossDataPengiriman'))
 
