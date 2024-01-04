@@ -4,6 +4,8 @@
 
 {% block content %}
 
+{% include 'partials/datatable-style.html' %}
+
 <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
 	<div class="absolute w-full bg-custom-yellow min-h-75"></div>
 
@@ -73,11 +75,49 @@
 								</div>
 							</form>
 						</div>
-
-						{{ dataBarangSupplier }}
+						<div class="flex-auto px-0 pt-0 pb-2">
+							<div class="p-0 overflow-x-auto">
+								<table	{% if dataBarangSupplier %}
+										id="tabelku" 
+									{% endif %}
+									
+								class="items-center w-full mb-0 align-top border-collapse text-slate-500">
+								<thead class="align-bottom ">
+									<tr>
+										<th class="border-b border-collapse shadow-none "><p class="px-6 pl-4 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Nama Barang</p></th>
+										<th class="border-b border-collapse shadow-none "><p class="pl-0 px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Harga Jual</p></th>
+										<th class="border-b border-collapse shadow-none "><p class="px-6 pl-0 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Harga Beli</p></th>
+									</tr>
+								</thead
+								<tbody>
+									{% if dataBarangSupplier %}
+										{% for data in dataBarangSupplier %}
+											<tr>
+												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<span class="ml-4 mb-0 text-sm font-semibold leading-tight">{{ data.2 }}</span>
+												</td>
+												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<span class="mb-0 text-sm font-semibold leading-tight">Rp. {{ "{:,}".format(data.3).replace(",",".") }}</span>
+												</td>
+												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<span class="mb-0 text-sm font-semibold leading-tight">Rp. {{ "{:,}".format(data.4).replace(",",".") }}</span>
+												</td>
+											</tr>
+										{% endfor %}
+										{% else %}
+											<td>Empty Data</td>
+									{% endif %}
+									
+								</tbody>
+							</table>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+
+			{% include 'partials/datatable-js.html' %}
+
 		</div>
 	</main>
 </body>
