@@ -8,6 +8,24 @@ def bossDataPembelianStore():
     if 'loggedin' in session:
         if session['role'] == 1 :
             
+            hitung = 0
+            uang_keluarInt = 0
+            uang_masukInt = 0
+            laba = 0
+            
+            getMaxId = Pembelian().getMaxIdPembelian()
+            
+            if getMaxId is not None:
+                hitung = Pembelian().selectSumTotalHarga(getMaxId)
+            
+                if hitung is not None:
+                    uang_masukInt = int(hitung[0])
+                    uang_keluarInt = int(hitung[1])
+                    
+                    laba = uang_masukInt - uang_keluarInt
+            
+            Pembelian().updatePembelian(getMaxId, uang_masukInt, uang_keluarInt, laba)
+            
             Pembelian().insertPembelian()
             
             return redirect(url_for('bossDataPembelian'))
@@ -22,15 +40,21 @@ def bossDataPembelian():
     if 'loggedin' in session:
         if session['role'] == 1 :
             
+            pembayaranInt = 0
+            getPembelianDetail = 0
+            
             getBarang = Barang().selectBarang()
             
             getMaxId = Pembelian().getMaxIdPembelian()
             
-            getPembelianDetail = Pembelian().selectPembelianDetail(getMaxId)
+            if getMaxId is not None:
+                getPembelianDetail = Pembelian().selectPembelianDetail(getMaxId)
+                pembayaran = Pembelian().selectSumTotalHarga(getMaxId)
+
+                if pembayaran[0] and pembayaran is not None:
+                    pembayaranInt = int(pembayaran[0])
             
-            pembayaran = int(Pembelian().selectSumTotalHarga(getMaxId))
-            
-            return render_template('boss/boss_data_pembelian.html', dataBarang=getBarang, dataPembelianDetail=getPembelianDetail, dataMaxId=getMaxId, totalPembayaran=pembayaran)
+            return render_template('boss/boss_data_pembelian.html', dataBarang=getBarang, dataPembelianDetail=getPembelianDetail, dataMaxId=getMaxId, totalPembayaran=pembayaranInt)
         
         else :
             return redirect(url_for('dashboard'))
@@ -40,16 +64,18 @@ def bossDataPembelian():
 @app.route('/boss/data-pembelian/store', methods=['POST'])
 def bossDataPembelianDetailStore():
     if session['role'] == 1:
-        if request.method == 'POST' and 'id_pembelian' in request.form and 'id_barang' in request.form and 'qty' in request.form and 'total_harga' in request.form:
+        if request.method == 'POST' and 'id_pembelian' in request.form and 'id_barang' in request.form and 'qty' in request.form and 'total_harga' in request.form and 'neto' in request.form:
 
             id_pembelian = request.form['id_pembelian']
             id_barang = request.form['id_barang']
             qty = int(request.form['qty'])
             total_harga = int(request.form['total_harga'])
+            neto = int(request.form['neto'])
             
             total_harga = total_harga * qty
+            neto = neto * qty
 
-            Pembelian().insertPembelianDetail(id_pembelian, id_barang, qty, total_harga)
+            Pembelian().insertPembelianDetail(id_pembelian, id_barang, qty, total_harga, neto)
 
             return redirect(url_for('bossDataPembelian'))
         
