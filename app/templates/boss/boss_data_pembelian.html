@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block title %}Penjualan{% endblock %}
+
+{% block content %}
+
+{% include 'partials/datatable-style.html' %}
+
+<body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+	<div class="absolute w-full bg-custom-yellow min-h-75"></div>
+
+	{% include 'partials/navbar.html' %}
+
+	<main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68 rounded-xl">
+	<!-- Navbar -->
+	<nav class="relative flex flex-wrap items-center justify-between px-0 pt-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="false">
+		<div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
+			<nav>
+				<!-- breadcrumb -->
+				<ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
+					<li class="text-sm leading-normal">
+						<a class="text-white opacity-50" href="">Boss</a>
+					</li>
+					<li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Pembelian </li>
+				</ol>
+				<h6 class="mb-0 font-bold text-white capitalize">Hitung Pembelian</h6>
+			</nav>
+
+			{% include 'partials/topnav.html' %}
+
+		</div>
+	</nav>
+	<div class="w-full px-6 py-6 mx-auto">
+		<div class="flex flex-wrap -mx-3">
+			<div class="flex-none w-full max-w-full px-3">
+				<div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl rounded-2xl bg-clip-border">
+					<div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+						<a href="{{ url_for('bossDataPembelianStore') }}" class="inline-block px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-indigo-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85"> Tambah Baru </a>
+					</div>
+					<div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+						{% if mesage is defined and mesage %}
+						<div class=" bg-red-500 shadow-md rounded-md mb-8">
+							<div class="inline-block w-full px-4 py-3.5 text-center text-sm text-white font-bold py-4">
+								{{ mesage }}
+							</div>
+						</div>
+
+						{% endif %}
+						<form action="{{ url_for('bossDataPembelianDetailStore') }}" method="POST" autocomplete="off">
+							<div class="flex flex-wrap -mx-3 pb-6 relative">
+								<div class=" w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+									<label for="id_supplier" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Nama Makanan</label>
+									<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" 
+										id="barang" required name="barang" onchange="updatePrice()">
+										<option class="dropdown-item " name="barang" id="barang" value=""> Pilih Makanan </option>
+										{% if dataBarang %}
+											{% for data in dataBarang  %}
+												<option class="dropdown-item " name="id_supplier" id="id_supplier" value="{{ data.0 }}" value_harga="{{ data.3 }}" value_neto="{{ data.4 }}"> {{ data.2 }} </option>
+											{% endfor %}
+										{% endif %}
+									</select>
+								</div>
+								<input  type="hidden" name="id_pembelian" id="id_pembelian" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="id_pembelian" value="{{ dataMaxId }}"/>
+								<input  type="hidden" name="id_barang" id="id_barang" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="id_barang" value=""/>
+								<input	type="hidden" name="neto" id="neto" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="neto" value=""/>
+								<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0 mb-24">
+									<label for="total_harga" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Harga Makanan</label>
+									<input type="number" readonly name="total_harga" id="total_harga" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="total_harga" />
+								</div>
+								<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+									<label for="qty" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Jumlah</label>
+									<input type="number" name="qty" id="qty" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="qty" />
+								</div>
+								<div class="right-0 bottom-6 absolute mt-5 w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+									<button type="submit" class="inline-block w-full py-3 mt-8 mb-0 font-bold leading-normal text-center text-white align-middle transition-all bg-green-500 border-0 rounded-lg cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25">Add</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<style>
+						
+						
+						table {
+							border-collapse: collapse;
+							width: 100%;
+						}
+						
+						th {
+							text-align: left;
+						}
+						</style>
+					<div class="flex-auto px-0 pt-0 pb-2">
+						<div class="p-0 overflow-x-auto">
+							<table	{% if dataPembelianDetail %}
+										id="tabelku" 
+									{% endif %}
+									
+								class="items-center w-full mb-0 align-top border-collapse text-slate-500">
+								<thead class="align-bottom ">
+									<tr>
+										<th class="border-b border-collapse shadow-none "><p class="px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Nama Barang</p></th>
+										<th class="border-b border-collapse shadow-none "><p class="px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Quantity</p></th>
+										<th class=" border-b border-collapse shadow-none"><p class="px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Harga Satuan</p></th>
+										<th class=" border-b border-collapse shadow-none"><p class="px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Total Harga</p></th>
+										<th class="border-b border-collapse shadow-none "><p class="px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Action</p></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% if dataPembelianDetail %}
+										{% for data in dataPembelianDetail %}
+											<tr>
+												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<span class="mb-0 text-sm font-semibold leading-tight ml-4">{{ data.9 }}</span>
+												</td>
+												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<span class="mb-0 text-sm font-semibold leading-tight ml-4">{{ data.3 }}</span>
+												</td>
+												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<span class="mb-0 text-sm font-semibold leading-tight ml-4">Rp. {{ "{:,}".format(data.10).replace(",",".") }}</span>
+												</td>
+												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<span class="mb-0 text-sm font-semibold leading-tight ml-4">Rp. {{ "{:,}".format(data.4).replace(",",".") }}</span>
+												</td>
+												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+													<a href="{{ url_for('bossDataPengirimanDelete', id = data.0) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="inline-block px-8 py-2 font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-red-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85 ml-4"> Delete </a>
+												</td>
+											</tr>
+										{% endfor %}
+										{% else %}
+											<td>Empty Data</td>
+									{% endif %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="flex flex-wrap -mx-3 pb-6 relative">
+						<input  type="hidden" name="id_barang" id="id_barang" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="id_barang" />
+						<div class="w-full max-w-full px-3 shrink-0 md:w-7/12 md:flex-0">
+							<label for="" class="inline-block mb-2 ml-6 font-bold text-lg text-slate-500">Total Pembayaran :</label></div>
+						<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0 ml-12">
+							<label for="" class="inline-block mb-2 ml-1 font-bold text-lg text-slate-700">Rp. {{ "{:,}".format(totalPembayaran).replace(",",".") }}</label></div>
+
+						<div class="w-full max-w-full px-3 shrink-0 md:w-7/12 md:flex-0 mt-2">
+							<label for="harga_jual" class="inline-block mb-2 ml-6 font-bold text-lg text-slate-500">Uang Pembayaran :</label></div>
+						<div class="w-full max-w-full px-3 shrink-0 md:w-2/12 md:flex-0 ml-12 mt-2">
+							<input type="number" name="payment" id="payment" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" aria-label="payment" />
+						</div>
+						<div class=" w-full max-w-full px-3 shrink-0 md:w-2/12 md:flex-0 mt-2">
+							<button onclick="calculateChange()" type="submit" class="inline-block w-full py-3 mb-0 font-bold leading-normal text-center text-white align-middle transition-all bg-green-500 border-0 rounded-lg cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25">Hitung</button>
+						</div>
+
+						<div class="w-full max-w-full px-3 shrink-0 md:w-7/12 md:flex-0 mt-4">
+							<label class="inline-block mb-2 ml-6 font-bold text-lg text-slate-500">Uang Kembalian :</label></div>
+						<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0 ml-12 mt-4">
+							<label class="inline-block mb-2 ml-1 font-bold text-lg text-slate-700" id="change">Rp. 0</label></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</main>
+
+	<script>
+		var setTotalPembayaran = {{ totalPembayaran | tojson | safe }};
+		
+		function updatePrice() {
+			var dropdown = document.getElementById("barang");
+			var selectedOption = dropdown.options[dropdown.selectedIndex];
+
+			var selectedId = selectedOption.value;
+			var selectedHarga= selectedOption.getAttribute("value_harga");
+			var selectedNeto= selectedOption.getAttribute("value_neto");
+
+			document.getElementById("id_barang").value = selectedId;
+			document.getElementById("total_harga").value = selectedHarga
+			document.getElementById("neto").value = selectedNeto
+		}
+
+		function formatCurrency(amount) {
+			return 'Rp ' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+		}
+
+		function calculateChange() {
+			const payment = parseFloat(document.getElementById('payment').value);
+		
+			if (!isNaN(payment)) {
+				const change = payment - setTotalPembayaran;
+
+				document.getElementById('change').textContent = change >= 0 ? formatCurrency(change) : 'Tidak mencukupi';
+			} else {
+				alert('Mohon masukkan jumlah pembayaran yang valid.');
+			}
+		}
+	</script>
+</body>
+
+{% endblock %}
+
+
