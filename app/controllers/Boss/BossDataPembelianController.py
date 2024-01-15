@@ -18,7 +18,7 @@ def bossDataPembelianStore():
             if getMaxId is not None:
                 hitung = Pembelian().selectSumTotalHarga(getMaxId)
             
-                if hitung is not None:
+                if hitung[0] and hitung[1] and hitung is not None:
                     uang_masukInt = int(hitung[0])
                     uang_keluarInt = int(hitung[1])
                     
