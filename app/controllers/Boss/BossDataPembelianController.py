@@ -43,7 +43,7 @@ def bossDataPembelian():
             pembayaranInt = 0
             getPembelianDetail = 0
             
-            getBarang = Barang().selectBarang()
+            getBarang = Barang().selectBarangNow()
             
             getMaxId = Pembelian().getMaxIdPembelian()
             
