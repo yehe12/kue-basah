@@ -83,3 +83,16 @@ def bossDataPembelianDetailStore():
         return redirect(url_for('dashboard'))
 
     return redirect(url_for('login'))
+
+@app.route('/boss/data-pembelian-detail/destroy/<int:id>', methods = ['GET'])
+def bossDataPembelianDetailDelete(id):
+    if 'loggedin' in session:
+        if session['role'] == 1 :
+            data = Pembelian().deletePembelianDetail(id)
+
+            return redirect(url_for('bossDataPembelian'))
+
+        else :
+            return redirect(url_for('dashboard'))
+        
+    return redirect(url_for('login'))
