@@ -65,3 +65,11 @@ class Pembelian:
         mysql.get_db().commit()
         cursor.close()
         
+    def deletePembelianDetail(self, id):
+        self.id = id
+        cursor = mysql.get_db().cursor()
+
+        delete_query = "DELETE FROM pembelian_detail WHERE id=%s"
+        cursor.execute(delete_query, (self.id))
+        mysql.get_db().commit()
+        cursor.close()
