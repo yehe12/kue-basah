@@ -1,6 +1,7 @@
 from app import app
 from app.models.barang import *
 from app.models.pembelian import *
+from app.models.pengiriman import *
 from flask import session, render_template, redirect, url_for, request
 
 @app.route('/boss/data-pembelian/pembelian-baru')
@@ -64,7 +65,7 @@ def bossDataPembelian():
 @app.route('/boss/data-pembelian/store', methods=['POST'])
 def bossDataPembelianDetailStore():
     if session['role'] == 1:
-        if request.method == 'POST' and 'id_pembelian' in request.form and 'id_barang' in request.form and 'qty' in request.form and 'total_harga' in request.form and 'neto' in request.form:
+        if request.method == 'POST' and 'id_pengiriman' in request.form and 'id_pembelian' in request.form and 'id_barang' in request.form and 'qty' in request.form and 'total_harga' in request.form and 'neto' in request.form:
 
             id_pembelian = request.form['id_pembelian']
             id_barang = request.form['id_barang']
@@ -72,10 +73,19 @@ def bossDataPembelianDetailStore():
             total_harga = int(request.form['total_harga'])
             neto = int(request.form['neto'])
             
+            id_pengiriman = int(request.form['id_pengiriman'])
+            sisa = int(request.form['sisa'])
+            laku = int(request.form['laku'])
+            
             total_harga = total_harga * qty
             neto = neto * qty
-
-            Pembelian().insertPembelianDetail(id_pembelian, id_barang, qty, total_harga, neto)
+            
+            if sisa >= qty :
+                sisa = sisa - qty
+                laku = laku + qty
+            
+                Pembelian().updateStockPengiriman(id_pengiriman, sisa, laku)
+                Pembelian().insertPembelianDetail(id_pembelian, id_barang, qty, total_harga, neto, id_pengiriman)
 
             return redirect(url_for('bossDataPembelian'))
         
@@ -84,11 +94,20 @@ def bossDataPembelianDetailStore():
 
     return redirect(url_for('login'))
 
-@app.route('/boss/data-pembelian-detail/destroy/<int:id>', methods = ['GET'])
-def bossDataPembelianDetailDelete(id):
+@app.route('/boss/data-pembelian-detail/destroy/<int:id>/<int:qty>/<int:id_pengiriman>', methods = ['GET'])
+def bossDataPembelianDetailDelete(id, qty, id_pengiriman):
     if 'loggedin' in session:
         if session['role'] == 1 :
-            data = Pembelian().deletePembelianDetail(id)
+            Pembelian().deletePembelianDetail(id)
+            pengiriman = Pengiriman().selectPengirimanOne(id_pengiriman)
+            
+            sisa = pengiriman[3]
+            laku = pengiriman[4]
+            
+            sisa = sisa + qty
+            laku = laku - qty
+            
+            Pembelian().updateStockPengiriman(id_pengiriman, sisa, laku)
 
             return redirect(url_for('bossDataPembelian'))
 
