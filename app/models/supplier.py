@@ -8,6 +8,7 @@ class Supplier:
         cursor = mysql.get_db().cursor()
         select_query = "SELECT * FROM supplier;"
         # dataSupplier = "SELECT nama_suplier, umur FROM supplier;"
+        # coba
         cursor.execute(select_query)
         dataSupplier = cursor.fetchall()
 

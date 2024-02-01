@@ -41,9 +41,9 @@
 						<div class="flex-auto px-6">
 							{% if mesage is defined and mesage %}
 							<div class=" bg-green-500 shadow-md rounded-md mb-8">
-									<div class="inline-block w-full px-4 py-3.5 text-center text-sm text-white font-bold py-4">
-											{{ mesage }}
-									</div>
+								<div class="inline-block w-full px-4 py-3.5 text-center text-sm text-white font-bold py-4">
+										{{ mesage }}
+								</div>
 							</div>
 							{% endif %}
 							<form action="{{ url_for('bossDataSupplierUpdate') }}" method="POST" autocomplete="off">
