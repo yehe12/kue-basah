@@ -4,16 +4,17 @@ from app.config.db import *
 
 class Pembelian:
 	
-    def insertPembelianDetail(self, id_pembelian, id_barang, qty, total_harga, neto):
+    def insertPembelianDetail(self, id_pembelian, id_barang, qty, total_harga, neto, id_pengiriman):
         self.id_pembelian = id_pembelian
         self.id_barang = id_barang
         self.qty = qty
         self.total_harga = total_harga
         self.neto = neto
+        self.id_pengiriman = id_pengiriman
 
         cursor = mysql.get_db().cursor()
-        insert_query = "INSERT INTO pembelian_detail (id_pembelian, id_barang, qty, total_harga, neto, create_at) VALUES (%s, %s, %s, %s, %s, now())"
-        cursor.execute(insert_query, (self.id_pembelian, self.id_barang, self.qty, self.total_harga, self.neto))
+        insert_query = "INSERT INTO pembelian_detail (id_pembelian, id_barang, qty, total_harga, neto, id_pengiriman, create_at) VALUES (%s, %s, %s, %s, %s, %s, now())"
+        cursor.execute(insert_query, (self.id_pembelian, self.id_barang, self.qty, self.total_harga, self.neto, self.id_pengiriman))
         mysql.get_db().commit()
         cursor.close()
         
@@ -65,3 +66,22 @@ class Pembelian:
         mysql.get_db().commit()
         cursor.close()
         
+    def updateStockPengiriman(self, id_pengiriman, sisa, laku):
+        self.id_pengiriman = id_pengiriman
+        self.sisa = sisa
+        self.laku = laku
+
+        cursor = mysql.get_db().cursor()
+        update_query = "UPDATE pengiriman SET sisa = %s, laku = %s WHERE id = %s"
+        cursor.execute(update_query, (self.sisa, self.laku, self.id_pengiriman))
+        mysql.get_db().commit()
+        cursor.close()
+        
+    def deletePembelianDetail(self, id):
+        self.id = id
+        cursor = mysql.get_db().cursor()
+
+        delete_query = "DELETE FROM pembelian_detail WHERE id=%s"
+        cursor.execute(delete_query, (self.id))
+        mysql.get_db().commit()
+        cursor.close()
