@@ -4,6 +4,23 @@ from app.config.db import *
 
 class Barang:
 	
+    def selectBarangSupplier(self, id):
+        self.id = id
+        cursor = mysql.get_db().cursor()
+        select_one = "SELECT * from barang WHERE id_supplier=%s"
+        cursor.execute(select_one, (self.id))
+        dataBarangSupplier = cursor.fetchall()
+
+        return dataBarangSupplier
+    
+    def selectBarangNow(self):
+        cursor = mysql.get_db().cursor()
+        select_query = "SELECT * FROM barang inner JOIN supplier ON barang.id_supplier = supplier.id inner join pengiriman on pengiriman.id_barang = barang.id WHERE DATE(pengiriman.create_at) = CURDATE() and pengiriman.sisa > 0;"
+        cursor.execute(select_query)
+        dataBarang = cursor.fetchall()
+
+        return dataBarang
+    
     def selectBarang(self):
         cursor = mysql.get_db().cursor()
         select_query = "SELECT * from barang INNER JOIN supplier ON barang.id_supplier=supplier.id;"
