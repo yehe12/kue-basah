@@ -15,14 +15,9 @@ app/controllers/Boss/__pycache__/BossDataSupplierController.cpython-312.pyc
 app/controllers/__pycache__/chart.cpython-312.pyc
 app/models/__pycache__/supplier.cpython-312.pyc
 app/controllers/Boss/__pycache__/BossDataBarangController.cpython-312.pyc
-app/controllers/Boss/__pycache__/BossDataPembelianController.cpython-312.pyc
 app/models/__pycache__/pembelian.cpython-312.pyc
-app/controllers/Boss/__pycache__/BossDataPengirimanController.cpython-312.pyc
 app/models/__pycache__/barang.cpython-312.pyc
 app/models/__pycache__/pengiriman.cpython-312.pyc
-app/controllers/Boss/__pycache__/BossDataPembelianController.cpython-312.pyc
-app/controllers/Boss/__pycache__/BossDataPembelianController.cpython-312.pyc
-app/controllers/Boss/__pycache__/BossDataPembelianController.cpython-312.pyc
-app/controllers/Boss/__pycache__/BossDataPenjualanController.cpython-312.pyc
 app/models/__pycache__/pembelian.cpython-312.pyc
 app/controllers/Boss/__pycache__/BossDataPembelianController.cpython-312.pyc
+app/models/__pycache__/pembelian.cpython-312.pyc
