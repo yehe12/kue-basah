@@ -18,6 +18,4 @@ app/controllers/Boss/__pycache__/BossDataBarangController.cpython-312.pyc
 app/models/__pycache__/pembelian.cpython-312.pyc
 app/models/__pycache__/barang.cpython-312.pyc
 app/models/__pycache__/pengiriman.cpython-312.pyc
-app/models/__pycache__/pembelian.cpython-312.pyc
 app/controllers/Boss/__pycache__/BossDataPembelianController.cpython-312.pyc
-app/models/__pycache__/pembelian.cpython-312.pyc
