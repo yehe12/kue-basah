@@ -57,29 +57,16 @@ def bossDataPengirimanUpdate():
             if request.method == 'POST' and 'stok' in request.form:
                 id = request.form['id']
                 stok = request.form['stok']
+                
+                getStok = Pengiriman().selectStokPengiriman(id)
+                
+                getStokList = list(getStok)
+                getStokList[0] = getStokList[0] + int(stok)
+                getStokList[1] = getStokList[1] + int(stok)
 
-                Pengiriman().updatePengiriman(id, stok)
+                Pengiriman().updatePengiriman(id, getStokList[0], getStokList[1])
 
                 return redirect(url_for('bossDataPengiriman'))
-
-        else :
-            return redirect(url_for('dashboard'))
-        
-    return redirect(url_for('login'))
-
-@app.route('/boss/data-pengiriman/destroy/<int:id>', methods = ['GET'])
-def bossDataPengirimanDelete(id):
-    if 'loggedin' in session:
-        if session['role'] == 1 :
-            # getPengiriman = Pengiriman().selectPengiriman()
-            Pengiriman().deletePengiriman(id)
-            
-            # if data > 0:
-            #     mesage = 'Tidak dapat menghapus barang karena masih terdapat data Barang!'
-            #     return render_template('boss/boss_data_pengiriman.html', dataPengiriman=getPengiriman, mesage = mesage)
-            
-            # else:
-            return redirect(url_for('bossDataPengiriman'))
 
         else :
             return redirect(url_for('dashboard'))

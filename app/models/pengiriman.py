@@ -32,27 +32,25 @@ class Pengiriman:
 
         return dataBarangOne
 
-    def updatePengiriman(self, id, stok):
+    def updatePengiriman(self, id, stok, sisa):
 
         self.id = id
         self.stok = stok
+        self.sisa = sisa
 
         cursor = mysql.get_db().cursor()
-        update_query = "UPDATE pengiriman SET stok = %s WHERE id = %s"
-        cursor.execute(update_query, (self.stok, self.stok, self.id))
+        update_query = "UPDATE pengiriman SET stok = %s, sisa = %s WHERE id = %s"
+        cursor.execute(update_query, (self.stok, self.sisa, self.id))
         mysql.get_db().commit()
         cursor.close()
-
-    def deletePengiriman(self, id):
+        
+    def selectStokPengiriman(self, id):
+        
         self.id = id
+        
         cursor = mysql.get_db().cursor()
+        select_query = "SELECT stok, sisa FROM pengiriman WHERE id = %s"
+        cursor.execute(select_query, (self.id))
+        count = cursor.fetchone()
         
-        delete_query = "DELETE FROM pengiriman WHERE id=%s"
-        cursor.execute(delete_query, (self.id))
-        mysql.get_db().commit()
-        cursor.close()
-        
-        
-
-        
-        
+        return count
