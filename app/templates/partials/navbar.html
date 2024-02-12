@@ -234,23 +234,23 @@
 			</li>
 			<li class="mt-0.5 w-full">
 				{% if session.name == 'Boss' %}
-				<a class="  {% if request.path == '/boss/data-pembelian' %}
+				<a class="  {% if request.path == '/boss/data-tagihan' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
 							{% else %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								text-sm ease-nav-brand text-slate-700
-							{% endif %}" href="{{ url_for('bossDataPembelian') }}">
+							{% endif %}" href="{{ url_for('bossDataTagihan') }}">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
 								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
-									{%if request.path == '/boss/data-pembelian' %}
+									{%if request.path == '/boss/data-tagihan' %}
 										text-white
 									{% else %}
 										text-blue-500
 									{% endif %}"></i>
 							</div>
 				{% elif session.name == 'Admin' %}
-				<a class="  {% if request.path == '/admin/data-pembelian' %}
+				<a class="  {% if request.path == '/admin/data-tagihan' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
 							{% else %}
@@ -259,7 +259,7 @@
 							{% endif %}" href="">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
 								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
-									{%if request.path == '/admmin/data-pembelian' %}
+									{%if request.path == '/admmin/data-tagihan' %}
 										text-white
 									{% else %}
 										text-blue-500

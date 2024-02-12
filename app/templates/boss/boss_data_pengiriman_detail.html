@@ -51,7 +51,7 @@
 										<label for="id_supplier" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Nama Supplier</label>
 										<select disabled="true" class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" 
 											onchange="updateJenisMakananOptions()" id="id_supplier" required name="id_supplier">
-											<option class="dropdown-item " name="id_supplier" id="id_supplier" value=""> {{ dataPengirimanOne.13 }} </option>
+											<option class="dropdown-item " name="id_supplier" id="id_supplier" value=""> {{ dataPengirimanOne.14 }} </option>
 											{% if dataSupplier %}
 												{% for data in dataSupplier  %}
 													<option class="dropdown-item " name="id_supplier" id="id_supplier" value="{{ data.0 }}"> {{ data.1 }} </option>
@@ -63,7 +63,7 @@
 										<label for="id_barang" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Nama Makanan</label>
 										<select disabled="true" class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" 
 											id="id_barang" required name="id_barang">
-											<option class="dropdown-item " name="id_barang" value="{{ dataPengirimanOne.1 }}"> {{ dataPengirimanOne.8 }} </option>
+											<option class="dropdown-item " name="id_barang" value="{{ dataPengirimanOne.1 }}"> {{ dataPengirimanOne.9 }} </option>
 										</select>
 									</div>
 									<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0 mb-24">
