@@ -6,7 +6,7 @@ class Pengiriman:
 	
     def selectPengiriman(self):
         cursor = mysql.get_db().cursor()
-        select_query = "SELECT * from pengiriman INNER JOIN barang ON pengiriman.id_barang=barang.id INNER JOIN supplier ON barang.id_supplier = supplier.id"
+        select_query = "SELECT *, pengiriman.laku * barang.harga_beli AS total_harga_beli from pengiriman INNER JOIN barang ON pengiriman.id_barang=barang.id INNER JOIN supplier ON barang.id_supplier = supplier.id"
         cursor.execute(select_query)
         dataPengiriman = cursor.fetchall()
 
@@ -26,7 +26,7 @@ class Pengiriman:
     def selectPengirimanOne(self, id):
         self.id = id
         cursor = mysql.get_db().cursor()
-        select_one = "SELECT * from pengiriman INNER JOIN barang ON pengiriman.id_barang=barang.id INNER JOIN supplier ON barang.id_supplier = supplier.id where pengiriman.id = %s"
+        select_one = "SELECT *, pengiriman.laku * barang.harga_beli AS total_harga_beli from pengiriman INNER JOIN barang ON pengiriman.id_barang=barang.id INNER JOIN supplier ON barang.id_supplier = supplier.id where pengiriman.id = %s"
         cursor.execute(select_one, (self.id))
         dataBarangOne = cursor.fetchone()
 
@@ -43,6 +43,17 @@ class Pengiriman:
         cursor.execute(update_query, (self.stok, self.sisa, self.id))
         mysql.get_db().commit()
         cursor.close()
+        
+    # def updatePengirimanStatus(self, id, status):
+
+    #     self.id = id
+    #     self.status = status
+
+    #     cursor = mysql.get_db().cursor()
+    #     update_query = "UPDATE pengiriman SET status = %s WHERE id = %s"
+    #     cursor.execute(update_query, (self.status, self.id))
+    #     mysql.get_db().commit()
+    #     cursor.close()
         
     def selectStokPengiriman(self, id):
         
