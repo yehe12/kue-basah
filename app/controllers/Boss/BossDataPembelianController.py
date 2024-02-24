@@ -1,6 +1,7 @@
 from app import app
 from app.models.barang import *
 from app.models.pembelian import *
+from app.models.tagihan import *
 from app.models.pengiriman import *
 from flask import session, render_template, redirect, url_for, request
 
@@ -84,6 +85,7 @@ def bossDataPembelianDetailStore():
                 sisa = sisa - qty
                 laku = laku + qty
             
+                Tagihan().insertTagihan(id_barang, qty, neto)
                 Pembelian().updateStockPengiriman(id_pengiriman, sisa, laku)
                 Pembelian().insertPembelianDetail(id_pembelian, id_barang, qty, total_harga, neto, id_pengiriman)
 
