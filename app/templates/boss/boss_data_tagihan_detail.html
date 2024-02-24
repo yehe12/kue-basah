@@ -48,10 +48,7 @@
 								<thead class="align-bottom ">
 									<tr>
 										<th class="border-b border-collapse shadow-none "><p class="px-6 pl-4 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Nama Barang</p></th>
-										<th class="border-b border-collapse shadow-none "><p class="pl-0 px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Harga Beli</p></th>
-										<th class="border-b border-collapse shadow-none "><p class="pl-0 px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Stok</p></th>
 										<th class="border-b border-collapse shadow-none "><p class="pl-0 px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Laku</p></th>
-										<th class="border-b border-collapse shadow-none "><p class="pl-0 px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Return</p></th>
 										<th class="border-b border-collapse shadow-none "><p class="px-6 pl-0 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Total Tagihan</p></th>
 									</tr>
 								</thead
@@ -60,22 +57,13 @@
 										{% for data in dataPengirimanOne %}
 											<tr>
 												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span class="ml-4 mb-0 text-sm font-semibold leading-tight">{{ data.0 }}</span>
-												</td>
-												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span class="mb-0 text-sm font-semibold leading-tight">Rp. {{ "{:,}".format(data.6).replace(",",".") }}</span>
+													<span class="ml-4 mb-0 text-sm font-semibold leading-tight">{{ data.2 }}</span>
 												</td>
 												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
 													<span class="mb-0 text-sm font-semibold leading-tight">{{ data.3}}</span>
 												</td>
 												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span class="mb-0 text-sm font-semibold leading-tight">{{ data.5}}</span>
-												</td>
-												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span class="mb-0 text-sm font-semibold leading-tight">{{ data.4}}</span>
-												</td>
-												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span class="mb-0 text-sm font-semibold leading-tight">Rp. {{ "{:,}".format(data.8).replace(",",".") }}</span>
+													<span class="mb-0 text-sm font-semibold leading-tight">Rp. {{ "{:,}".format(data.4).replace(",",".") }}</span>
 												</td>
 											</tr>
 										{% endfor %}
