@@ -65,27 +65,27 @@
 										{% for data in dataTagihan %}
 											<tr>
 												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span class="mb-0 text-sm font-semibold leading-tight ml-4">{{ data.1 }}</span>
+													<span class="mb-0 text-sm font-semibold leading-tight ml-4">{{ data.0 }}</span>
 												</td>
 												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span class="mb-0 text-sm font-semibold leading-tight ml-4">{{ data.2 }}</span>
+													<span class="mb-0 text-sm font-semibold leading-tight ml-4">{{ data.1 }}</span>
 												</td>
 												<td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
 													<span
-														{% if data.3 == 'Lunas' %}
+														{% if data.2 == 'Lunas' %}
 															class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"
-														{% elif data.3 == 'Belum Lunas' %}
+														{% elif data.2 == 'Belum Lunas' %}
 															class="bg-gradient-to-tl from-red-500 to-red-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"
 														{% endif %}
 														>
-														{{ data.3 }}
+														{{ data.2 }}
 													</span>
 												</td>
 												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span class="mb-0 text-sm font-semibold leading-tight">Rp. {{ "{:,}".format(data.4).replace(",",".") }}</span>
+													<span class="mb-0 text-sm font-semibold leading-tight">Rp. {{ "{:,}".format(data.3).replace(",",".") }}</span>
 												</td>
 												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<a href="{{ url_for('bossDataTagihanOne', id = data.0) }}" class="inline-block px-8 py-2 mb- ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85"> Detail </a>
+													<a href="{{ url_for('bossDataTagihanOne', id = 0) }}" class="inline-block px-8 py-2 mb- ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85"> Detail </a>
 												</td>
 											</tr>
 										{% endfor %}
@@ -97,6 +97,19 @@
 							</table>
 						</div>
 					</div>
+					<!-- <div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+						<label for="status" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Status</label>
+						<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
+							id="status" required name="status" onchange="selectFilter(this.value)">
+							<option class="dropdown-item " name="status" value=""> Pilih </option>
+							<option class="dropdown-item " name="status" value="day"> Hari </option>
+							<option class="dropdown-item" name="status" value="week"> Minggu </option>
+							<option class="dropdown-item" name="status" value="month"> Bulan </option>
+						</select>
+					</div>
+					<div style="width: 500px;height: 500px">
+						<canvas id="myChart"></canvas>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -105,6 +118,55 @@
 
 	</div>
 	</main>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<script>
+		function selectFilter(selectedValue) {
+			var selectedDataTagihan;
+
+			dataTagihan = {{ dataTagihan | tojson | safe }};
+
+			if (selectedValue === 'day') {
+				selectedDataTagihan = dataTagihan
+			} else if (selectedValue === 'week') {
+			} else if (selectedValue === 'month') {
+			}
+
+			var data = [];
+			var labels = [];
+
+			selectedDataTagihan.forEach(function(item) {
+				data.push(parseInt(item[4], 10));
+				labels.push(item[2]);
+			});
+
+			console.log("data new : ", data);
+			console.log("labels new : ", labels);
+
+			const ctx = document.getElementById("myChart");
+
+			new Chart(ctx, {
+				type: "line",
+				data: {
+				labels: labels,
+				datasets: [
+					{
+					label: "# of Votes",
+					data: data,
+					borderWidth: 1,
+					},
+				],
+				},
+				options: {
+				scales: {
+					y: {
+					beginAtZero: true,
+					},
+				},
+				},
+			});
+		}
+	</script> -->
 </body>
 
 {% endblock %}
