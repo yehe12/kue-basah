@@ -18,12 +18,15 @@ def bossDataTagihan():
         
     return redirect(url_for('login'))
 
-@app.route('/boss/data-tagihan/detail/<int:id>', methods = ['GET'])
-def bossDataTagihanOne(id):
+@app.route('/boss/data-tagihan/detail', methods = ['POST'])
+def bossDataTagihanOne():
     if 'loggedin' in session:
         if session['role'] == 1 :
+            if request.method == 'POST' and 'create_at' in request.form and 'nama_supplier' in request.form :
+                create_at = request.form['create_at']
+                nama_supplier = request.form['nama_supplier']
             
-            getPengirimanOne = Tagihan().selectPengirimanOne(id)
+                getPengirimanOne = Tagihan().selectPengirimanOne(create_at, nama_supplier)
 
             return render_template('boss/boss_data_tagihan_detail.html', dataPengirimanOne=getPengirimanOne)
 

@@ -8,7 +8,7 @@ class Tagihan:
         cursor = mysql.get_db().cursor()
         select_query =  """ 
                             SELECT
-                                DATE_FORMAT(tagihan.create_at, '%d %M %Y') AS create_at,
+                                DATE(tagihan.create_at) AS create_at,
                                 supplier.nama_suplier AS nama_supplier,
                                 tagihan.status,
                                 SUM(tagihan.neto) AS neto
@@ -19,7 +19,7 @@ class Tagihan:
                             INNER JOIN  
                                 supplier ON barang.id_supplier = supplier.id
                             GROUP BY  
-                                DATE_FORMAT(tagihan.create_at, '%d %M %Y'),tagihan.status, supplier.nama_suplier
+                                DATE(tagihan.create_at),tagihan.status, supplier.nama_suplier
                             ORDER BY   
                                 create_at, nama_supplier;
                         """
@@ -28,21 +28,34 @@ class Tagihan:
 
         return dataTagihan
         
-    def selectPengirimanOne(self, id):
-        self.id = id
+    def selectPengirimanOne(self, create_at, nama_supplier):
+        self.create_at = create_at
+        self.nama_supplier = nama_supplier
+        
         cursor = mysql.get_db().cursor()
-        print("cik : ", self.id)
         select_one = """
-                        SELECT 
-                            barang.nama_barang, pengiriman.id, pengiriman.status, pengiriman.stok, pengiriman.sisa, pengiriman.laku, 
-                            barang.harga_beli, supplier.id, pengiriman.laku * barang.harga_beli AS total_harga_beli 
-                        FROM pengiriman INNER JOIN barang ON pengiriman.id_barang=barang.id 
-                        INNER JOIN supplier ON barang.id_supplier = supplier.id 
-                        WHERE tagihan.id = %s
+                        SELECT   
+                            DATE(tagihan.create_at) AS create_at,
+                            supplier.nama_suplier,
+                            barang.nama_barang,
+                            sum(tagihan.qty),
+                            SUM(tagihan.neto) AS total_neto
+                        FROM   
+                            tagihan
+                        INNER JOIN   
+                            barang ON barang.id = tagihan.id_barang
+                        INNER JOIN   
+                            supplier ON supplier.id = barang.id_supplier
+                        where supplier.nama_suplier = %s AND date(tagihan.create_at) = date(%s)
+                        GROUP BY   
+                            DATE(tagihan.create_at), supplier.nama_suplier, barang.nama_barang
+                        ORDER BY   
+                            DATE(tagihan.create_at), supplier.nama_suplier, barang.nama_barang
                     """
-        cursor.execute(select_one, (self.id))
+        cursor.execute(select_one, (self.nama_supplier, self.create_at))
+        
         dataBarangOne = cursor.fetchall()
-
+        
         return dataBarangOne
     
     def insertTagihan(self, id_barang, qty, neto):
