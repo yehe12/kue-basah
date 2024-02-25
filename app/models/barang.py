@@ -23,7 +23,7 @@ class Barang:
     
     def selectBarang(self):
         cursor = mysql.get_db().cursor()
-        select_query = "SELECT * from barang INNER JOIN supplier ON barang.id_supplier=supplier.id;"
+        select_query = "SELECT * from barang INNER JOIN supplier ON barang.id_supplier=supplier.id order by supplier.nama_suplier asc;"
         cursor.execute(select_query)
         dataBarang = cursor.fetchall()
 

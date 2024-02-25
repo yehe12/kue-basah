@@ -6,7 +6,7 @@ class Pengiriman:
 	
     def selectPengiriman(self):
         cursor = mysql.get_db().cursor()
-        select_query = "SELECT *, pengiriman.laku * barang.harga_beli AS total_harga_beli from pengiriman INNER JOIN barang ON pengiriman.id_barang=barang.id INNER JOIN supplier ON barang.id_supplier = supplier.id"
+        select_query = "SELECT *, pengiriman.laku * barang.harga_beli AS total_harga_beli, date(pengiriman.create_at) from pengiriman INNER JOIN barang ON pengiriman.id_barang=barang.id INNER JOIN supplier ON barang.id_supplier = supplier.id ORDER BY pengiriman.create_at DESC"
         cursor.execute(select_query)
         dataPengiriman = cursor.fetchall()
 

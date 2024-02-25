@@ -6,7 +6,7 @@ class Supplier:
 	
     def selectSupplier(self):
         cursor = mysql.get_db().cursor()
-        select_query = "SELECT * FROM supplier;"
+        select_query = "SELECT * FROM supplier order by nama_suplier asc;"
         # dataSupplier = "SELECT nama_suplier, umur FROM supplier;"
         # coba
         cursor.execute(select_query)

@@ -21,7 +21,7 @@ class Tagihan:
                             GROUP BY  
                                 DATE(tagihan.create_at),tagihan.status, supplier.nama_suplier
                             ORDER BY   
-                                create_at, nama_supplier;
+                                create_at desc, nama_supplier;
                         """
         cursor.execute(select_query)
         dataTagihan = cursor.fetchall()
