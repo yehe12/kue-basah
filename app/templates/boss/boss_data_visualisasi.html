@@ -46,69 +46,130 @@
 					</div>
 					<div class="flex-auto px-0 pt-0 pb-2">
 						<div class="p-0 overflow-x-auto">
-							<table	{% if dataTagihan %}
-										id="tabelku" 
-									{% endif %}
-									
-								class="items-center w-full mb-0 align-top border-collapse text-slate-500">
-								<thead class="align-bottom ">
-									<tr>
-										<th class="border-b border-collapse shadow-none "><p class="px-6 pl-4 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Tanggal</p></th>
-										<th class="border-b border-collapse shadow-none "><p class="px-6 pl-0 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Nama Supplier</p></th>
-										<th class=" border-b border-collapse shadow-none"><p class="pl-0 px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Status</p></th>
-										<th class=" border-b border-collapse shadow-none"><p class="pl-0 px-6 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Tagihan</p></th>
-										<th class="border-b border-collapse shadow-none "><p class="px-6 pl-0 font-bold uppercase bg-transparent text-xs border-b-solid tracking-none whitespace-nowrap text-slate-400">Action</p></th>
-									</tr>
-								</thead>
-								<tbody>
-									{% if dataTagihan %}
-										{% for data in dataTagihan %}
-											<tr>
-												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span class="mb-0 text-sm font-semibold leading-tight ml-4">{{ data.1 }}</span>
-												</td>
-												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span class="mb-0 text-sm font-semibold leading-tight ml-4">{{ data.2 }}</span>
-												</td>
-												<td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span
-														{% if data.3 == 'Lunas' %}
-															class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"
-														{% elif data.3 == 'Belum Lunas' %}
-															class="bg-gradient-to-tl from-red-500 to-red-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"
+							<div class="pl-4 pb-5 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+								<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+									<label for="status" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Pilih Visualisasi</label>
+									<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" id="status" required name="status" onchange="showSelectedDiv(this.value)">
+										<option value="">Pilih</option>
+										<option value="favorit">Favorit</option>
+										<option value="omset">Omset</option>
+										<option value="profit">Profit</option>
+										<option value="return">Return</option>
+										<option value="perbandingan">Perbandingan</option>
+									</select>
+								</div>
+								<div id="favorit" style="display: none;" class=" pt-4">
+									<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+										<label for="status" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Favorit</label>
+										<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
+											id="status" required name="status" onchange="selectFavFilter(this.value)">
+											<option class="dropdown-item " name="status" value=""> Pilih </option>
+											<option class="dropdown-item " name="status" value="day"> Hari </option>
+											<option class="dropdown-item" name="status" value="week"> Minggu </option>
+										</select>
+									</div>
+									<div id="favChartContainer" style="width: 0;height: 2">
+										<canvas id="favChart"></canvas>
+									</div>
+								</div>
+							
+								<div id="omset" style="display: none;" class=" pt-4">
+									<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+										<label for="status" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Omset</label>
+										<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
+											id="status" required name="status" onchange="selectOmsetFilter(this.value)">
+											<option class="dropdown-item " name="status" value=""> Pilih </option>
+											<option class="dropdown-item " name="status" value="week"> Minggu </option>
+											<option class="dropdown-item" name="status" value="month"> Bulan </option>
+										</select>
+									</div>
+									<div id="omsetChartContainer" style="width: 0;height: 2">
+										<canvas id="omsetChart"></canvas>
+									</div>
+								</div>
+							
+								<div id="profit" style="display: none;" class=" pt-4">
+									<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+										<label for="status" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Profit</label>
+										<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
+											id="status" required name="status" onchange="selectProfitFilter(this.value)">
+											<option class="dropdown-item " name="status" value=""> Pilih </option>
+											<option class="dropdown-item " name="status" value="week"> Minggu </option>
+											<option class="dropdown-item" name="status" value="month"> Bulan </option>
+										</select>
+									</div>
+									<div id="profitChartContainer" style="width: 0;height: 2">
+										<canvas id="profitChart"></canvas>
+									</div>
+								</div>
+
+								<div id="return" style="display: none;" class=" pt-4">
+									<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+										<label for="status" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Return</label>
+										<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
+											id="status" required name="status" onchange="selectReturnFilter(this.value)">
+											<option class="dropdown-item " name="status" value=""> Pilih </option>
+											<option class="dropdown-item " name="status" value="week"> Minggu </option>
+										</select>
+									</div>
+									<div id="returnChartContainer" style="width: 0;height: 2">
+										<canvas id="returnChart"></canvas>
+									</div>
+								</div>
+
+								<div id="perbandingan" style="display: none;" class=" pt-4">
+									<div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+										<form action="{{ url_for('bossDataVisualisasiPerbandingan') }}" method="POST" autocomplete="off">
+											<div class="flex flex-wrap -mx-3 pb-6 relative">
+												<div class=" w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+													<label for="id_supplier" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Nama Makanan A</label>
+													<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none 
+													rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none 
+													transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" id="nama_barang_a" name="nama_barang_a" required>
+														<option class="dropdown-item " id="nama_barang_a" value=""> Pilih Makanan </option>
+														{% if dataBarang %}
+															{% for data in dataBarang  %}
+																<option class="dropdown-item " id="nama_barang_a" value="{{ data.2 }}"> {{ data.2 }} </option>
+															{% endfor %}
 														{% endif %}
-														>
-														{{ data.3 }}
-													</span>
-												</td>
-												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<span class="mb-0 text-sm font-semibold leading-tight">Rp. {{ "{:,}".format(data.4).replace(",",".") }}</span>
-												</td>
-												<td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-													<a href="{{ url_for('bossDataTagihanOne', id = data.0) }}" class="inline-block px-8 py-2 mb- ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85"> Detail </a>
-												</td>
-											</tr>
-										{% endfor %}
-										{% else %}
-											<td>Empty Data</td>
-									{% endif %}
-									
-								</tbody>
-							</table>
+													</select>
+												</div>
+												<div class=" w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+													<label for="nama_barang_b" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Nama Makanan B</label>
+													<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none 
+													rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none
+													transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" id="nama_barang_b" required name="nama_barang_b">
+														<option class="dropdown-item " name="nama_barang_b" value=""> Pilih Makanan </option>
+														{% if dataBarang %}
+															{% for data in dataBarang  %}
+																<option class="dropdown-item " name="nama_barang_b" value="{{ data.2 }}"> {{ data.2 }} </option>
+															{% endfor %}
+														{% endif %}
+													</select>
+												</div>
+												<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+													<label for="tanggal_awal" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Tanggal Awal</label>
+													<input type="date" name="tanggal_awal" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"/>
+												</div>
+												<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+													<label for="tanggal_akhir" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Tanggal Akhir</label>
+													<input type="date" name="tanggal_akhir" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+												</div>
+												<div class="right-0 bottom-6 absolute mt-5 w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+													<button type="submit" class="inline-block w-full py-3 mt-8 mb-0 font-bold leading-normal text-center text-white align-middle transition-all bg-green-500 border-0 rounded-lg cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25">Add</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+
+								{% if dataPerbandingan %}
+									<div style="width: 300px;height: 300px">
+										<canvas id="perbandinganChart"></canvas>
+									</div>
+								{% endif %}
+							</div>
 						</div>
-					</div>
-					<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
-						<label for="status" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Status</label>
-						<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-							id="status" required name="status" onchange="selectFilter(this.value)">
-							<option class="dropdown-item " name="status" value=""> Pilih </option>
-							<option class="dropdown-item " name="status" value="day"> Hari </option>
-							<option class="dropdown-item" name="status" value="week"> Minggu </option>
-							<option class="dropdown-item" name="status" value="month"> Bulan </option>
-						</select>
-					</div>
-					<div style="width: 500px;height: 500px">
-						<canvas id="myChart"></canvas>
 					</div>
 				</div>
 			</div>
@@ -121,50 +182,382 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 	<script>
-		function selectFilter(selectedValue) {
-			var selectedDataTagihan;
+		var favChartInstance = null;
+		var omsetChartInstance = null;
+		var profitChartInstance = null;
+		var returnChartInstance = null;
+		var perbandinganChartInstance = null;
 
-			dataVisualisasiHarian = {{ dataVisualisasiHarian | tojson | safe }};
-
-			if (selectedValue === 'day') {
-				selectedDataTagihan = dataVisualisasiHarian
-			} else if (selectedValue === 'week') {
-			} else if (selectedValue === 'month') {
+		function showSelectedDiv(value) {
+			
+			if (perbandinganChartInstance) {
+				perbandinganChartInstance.destroy();
 			}
+
+			document.getElementById('favorit').style.display = 'none';
+			document.getElementById('omset').style.display = 'none';
+			document.getElementById('profit').style.display = 'none';
+			document.getElementById('return').style.display = 'none';
+			document.getElementById('perbandingan').style.display = 'none';
+
+			if (value) {
+				document.getElementById(value).style.display = 'block';
+			}
+		}
+
+		var ctx = document.getElementById("perbandinganChart");
+
+		var data = [];
+		var labels = [];
+
+		dataPerbandingan = {{ dataPerbandingan | tojson | safe }};
+
+		if (dataPerbandingan.length === 0) {
+			// Jika dataPerbandingan kosong, cetak "data kosong"
+			console.log("data kosong");
+		} else {
+			console.log(dataPerbandingan);
+
+			var selectedDataPerbandingan = dataPerbandingan;
+
+			selectedDataPerbandingan.forEach(function(item) {
+				data.push(item[1]);
+				labels.push(item[0]);
+			});
+
+			perbandinganChartInstance = new Chart(ctx, {
+				type: "pie",
+				data: {
+					labels: labels,
+					datasets: [
+						{
+							label: "Grafik Perbandingan",
+							data: data,
+							borderWidth: 2,
+							borderWidth: 2,
+							backgroundColor: [
+								'rgba(99, 255, 128, 0.2)',
+								'rgba(255, 99, 132, 0.2)',
+							],
+							borderColor: [
+								'rgb(99, 255, 128)',
+								'rgb(255, 99, 132)',
+							],
+							borderWidth: 1
+						},
+					],
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true,
+							ticks: {
+								stepSize: 1,
+							},
+						},
+					},
+				},
+			});
+		}
+
+		function selectReturnFilter(selectedValue) {
+			var ctx = document.getElementById("returnChart");
 
 			var data = [];
 			var labels = [];
+
+			var selectedDataReturn;
+
+			//dataFavoritHarian = {{ dataFavoritHarian | tojson | safe }};
+			dataReturnMingguan = {{ dataReturnMingguan | tojson | safe }};
+
+			if (selectedDataReturn === 'day') {
+				selectedDataReturn = dataReturntHarian
+			} else if (selectedValue === 'week') {
+				selectedDataReturn = dataReturnMingguan
+			}
+
+			selectedDataReturn.forEach(function(item) {
+				data.push(item[2]);
+				labels.push(item[1]);
+			});
+
+			if (returnChartInstance) {
+				returnChartInstance.destroy();
+			}
+
+			if (perbandinganChartInstance) {
+				perbandinganChartInstance.destroy();
+			}
+
+			returnChartInstance = new Chart(ctx, {
+				type: "bar",
+				data: {
+					labels: labels,
+					datasets: [
+						{
+							label: "Grafik Return Makanan",
+							data: data,
+							borderWidth: 2,
+							backgroundColor: [
+								'rgba(255, 99, 132, 0.2)',
+								'rgba(99, 255, 128, 0.2)',
+								'rgba(255, 205, 86, 0.2)',
+								'rgba(54, 162, 235, 0.2)',
+								'rgba(153, 102, 255, 0.2)'
+							],
+							borderColor: [
+								'rgb(255, 99, 132)',
+								'rgb(99, 255, 128)',
+								'rgb(255, 205, 86)',
+								'rgb(54, 162, 235)',
+								'rgb(153, 102, 255)'
+							],
+							borderWidth: 1
+						},
+					],
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true,
+							ticks: {
+								stepSize: 1,
+							},
+						},
+					},
+				},
+			});
+
+			var returnChartContainer = document.getElementById("returnChartContainer");
+			if (selectedValue) {
+				returnChartContainer.style.width = "500px";
+				returnChartContainer.style.height = "280px";
+			} else {
+				returnChartContainer.style.width = "0";
+				returnChartContainer.style.height = "0";
+			}
+		}
+
+		function selectProfitFilter(selectedValue) {
+			var ctx = document.getElementById("profitChart");
+
+			var data = [];
+			var labels = [];
+
+			var selectedDataProfit;
+
+			dataProfitMingguan = {{ dataProfitMingguan | tojson | safe }};
+			dataProfitBulanan = {{ dataProfitBulanan | tojson | safe }};
+
+			if (selectedValue === 'week') {
+				selectedDataProfit = dataProfitMingguan
+			} else if (selectedValue === 'month') {
+				selectedDataProfit = dataProfitBulanan
+			}
+
+			selectedDataProfit.forEach(function(item) {
+				var formattedDate = new Date(item[0]).toLocaleDateString('en-GB', {
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit'
+				});
+				data.push(item[1]);
+				labels.push(formattedDate);
+			});
+
+			if (profitChartInstance) {
+				profitChartInstance.destroy();
+			}
+
+			if (perbandinganChartInstance) {
+				perbandinganChartInstance.destroy();
+			}
+			
+			profitChartInstance = new Chart(ctx, {
+				type: "line",
+				data: {
+					labels: labels,
+					datasets: [
+						{
+							label: "Grafik Profit",
+							data: data,
+							borderWidth: 2,
+							borderColor: 'rgb(99, 255, 128)',
+						},
+					],
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true,
+							ticks: {
+								stepSize: 1,
+							},
+						},
+					},
+				},
+			});
+
+			var profitChartContainer = document.getElementById("profitChartContainer");
+			if (selectedValue) {
+				profitChartContainer.style.width = "960px";
+				profitChartContainer.style.height = "500px";
+			} else {
+				profitChartContainer.style.width = "0";
+				profitChartContainer.style.height = "0";
+			}
+		}
+
+		function selectOmsetFilter(selectedValue) {
+			var ctx = document.getElementById("omsetChart");
+
+			var data = [];
+			var labels = [];
+
+			var selectedDataOmset;
+
+			dataOmsetMingguan = {{ dataOmsetMingguan | tojson | safe }};
+			dataOmsetBulanan = {{ dataOmsetBulanan | tojson | safe }};
+
+			if (selectedValue === 'week') {
+				selectedDataOmset = dataOmsetMingguan
+			} else if (selectedValue === 'month') {
+				selectedDataOmset = dataOmsetBulanan
+			}
+
+			selectedDataOmset.forEach(function(item) {
+				var formattedDate = new Date(item[0]).toLocaleDateString('en-GB', {
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit'
+				});
+				data.push(item[1]);
+				labels.push(formattedDate);
+			});
+
+			if (omsetChartInstance) {
+				omsetChartInstance.destroy();
+			}
+
+			if (perbandinganChartInstance) {
+				perbandinganChartInstance.destroy();
+			}
+
+			omsetChartInstance = new Chart(ctx, {
+				type: "line",
+				data: {
+					labels: labels,
+					datasets: [
+						{
+							label: "Grafik Omset",
+							data: data,
+							borderWidth: 2,
+							borderColor: 'rgb(153, 102, 255)',
+						},
+					],
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true,
+							ticks: {
+								stepSize: 1,
+							},
+						},
+					},
+				},
+			});
+
+			var omsetChartContainer = document.getElementById("omsetChartContainer");
+			if (selectedValue) {
+				omsetChartContainer.style.width = "960px";
+				omsetChartContainer.style.height = "500px";
+			} else {
+				omsetChartContainer.style.width = "0";
+				omsetChartContainer.style.height = "0";
+			}
+		}
+
+		function selectFavFilter(selectedValue) {
+			var ctx = document.getElementById("favChart");
+
+			var data = [];
+			var labels = [];
+
+			var selectedDataTagihan;
+
+			dataFavoritHarian = {{ dataFavoritHarian | tojson | safe }};
+			dataFavoritMingguan = {{ dataFavoritMingguan | tojson | safe }};
+
+			if (selectedValue === 'day') {
+				selectedDataTagihan = dataFavoritHarian
+			} else if (selectedValue === 'week') {
+				selectedDataTagihan = dataFavoritMingguan
+			}
 
 			selectedDataTagihan.forEach(function(item) {
 				data.push(item[2]);
 				labels.push(item[1]);
 			});
 
-			console.log("data new : ", data);
-			console.log("labels new : ", labels);
+			if (favChartInstance) {
+				favChartInstance.destroy();
+			}
 
-			const ctx = document.getElementById("myChart");
+			if (perbandinganChartInstance) {
+				perbandinganChartInstance.destroy();
+			}
+	
+			//var barColors = Array.from({ length: data.length }, () => getRandomPastelColor());
 
-			new Chart(ctx, {
+			favChartInstance = new Chart(ctx, {
 				type: "bar",
 				data: {
-				labels: labels,
-				datasets: [
-					{
-					label: "# of Votes",
-					data: data,
-					borderWidth: 1,
-					},
-				],
+					labels: labels,
+					datasets: [
+						{
+							label: "Grafik Makanan Favorit",
+							data: data,
+							borderWidth: 2,
+							backgroundColor: [
+								'rgba(255, 99, 132, 0.2)',
+								'rgba(99, 255, 128, 0.2)',
+								'rgba(255, 205, 86, 0.2)',
+								'rgba(54, 162, 235, 0.2)',
+								'rgba(153, 102, 255, 0.2)'
+							],
+							borderColor: [
+								'rgb(255, 99, 132)',
+								'rgb(99, 255, 128)',
+								'rgb(255, 205, 86)',
+								'rgb(54, 162, 235)',
+								'rgb(153, 102, 255)'
+							],
+							borderWidth: 1
+						},
+					],
 				},
 				options: {
-				scales: {
-					y: {
-					beginAtZero: true,
+					scales: {
+						y: {
+							beginAtZero: true,
+							ticks: {
+								stepSize: 1,
+							},
+						},
 					},
 				},
-				},
 			});
+
+			var favChartContainer = document.getElementById("favChartContainer");
+			if (selectedValue) {
+				favChartContainer.style.width = "500px";
+				favChartContainer.style.height = "280px";
+			} else {
+				favChartContainer.style.width = "0";
+				favChartContainer.style.height = "0";
+			}
 		}
 	</script>
 </body>
