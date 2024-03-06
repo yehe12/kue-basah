@@ -34,20 +34,3 @@ def bossDataTagihanOne():
             return redirect(url_for('dashboard'))
 
     return redirect(url_for('login'))
-
-# @app.route('/boss/data-tagihan/detail/update', methods =['POST'])
-# def bossDataTagihanUpdate():
-#     if 'loggedin' in session:
-#         if session['role'] == 1 :
-#             if request.method == 'POST' and 'status' in request.form:
-#                 id = request.form['id']
-#                 status = request.form.getlist('status')
-
-#                 Pengiriman().updatePengirimanStatus(id, status)
-
-#                 return redirect(url_for('bossDataTagihan'))
-
-#         else :
-#             return redirect(url_for('dashboard'))
-        
-#     return redirect(url_for('login'))

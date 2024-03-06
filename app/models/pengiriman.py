@@ -44,17 +44,6 @@ class Pengiriman:
         mysql.get_db().commit()
         cursor.close()
         
-    # def updatePengirimanStatus(self, id, status):
-
-    #     self.id = id
-    #     self.status = status
-
-    #     cursor = mysql.get_db().cursor()
-    #     update_query = "UPDATE pengiriman SET status = %s WHERE id = %s"
-    #     cursor.execute(update_query, (self.status, self.id))
-    #     mysql.get_db().commit()
-    #     cursor.close()
-        
     def selectStokPengiriman(self, id):
         
         self.id = id
