@@ -93,3 +93,16 @@ class Tagihan:
         cursor.execute(update_query, (self.id, self.create_at))
         mysql.get_db().commit()
         cursor.close()
+        
+    def sendEmail(self, email):
+
+        self.email = email
+
+        cursor = mysql.get_db().cursor()
+        msg = Message(subject='Pemberitahuan Status Pembayaran Tagihan', sender = 'orang', recipients = [email])
+        msg.body = "Status pembayaran tagihan makanan telah bayar"
+        
+        mail.send(msg)
+
+        mysql.get_db().commit()
+        cursor.close()

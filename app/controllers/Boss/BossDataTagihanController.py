@@ -47,6 +47,9 @@ def bossDataIdBarang():
                 
                 for data in getIdBarang :
                     Tagihan().updateStatus(data, date)
+                    
+                email = "sakkarepkupokok123@gmail.com"
+                Tagihan().sendEmail(email)
             
             return redirect(url_for('bossDataTagihan'))
 
