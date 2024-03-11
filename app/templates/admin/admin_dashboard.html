@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Admin Dashboard{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
 
 <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
-	<div class="absolute w-full bg-blue-500 min-h-75"></div>
+	<div class="absolute w-full bg-custom-yellow min-h-75"></div>
 	
 	{% include 'partials/navbar.html' %}
 
@@ -17,7 +17,7 @@
 					<!-- breadcrumb -->
 					<ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
 						<li class="text-sm leading-normal">
-							<a class="text-white opacity-50" href="">Admin</a>
+							<a class="text-white opacity-50" href="">Shop Keeper</a>
 						</li>
 						<li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Dashboard</li>
 					</ol>
@@ -32,106 +32,10 @@
 		<!-- end Navbar -->
 
 		<!-- cards -->
-		<div class="w-full px-6 py-6 mx-auto">
-			<!-- row 1 -->
-			<div class="flex flex-wrap -mx-3">
-				<!-- card1 -->
-				<div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
-					<div class="relative flex flex-col min-w-0 break-words bg-white shadow-xl rounded-2xl bg-clip-border">
-						<div class="flex-auto p-4">
-							<div class="flex flex-row -mx-3">
-								<div class="flex-none w-2/3 max-w-full px-3">
-									<div>
-										<p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Customer</p>
-										<h5 class="mb-2 font-bold">{{ count_user }} Customer</h5>
-									</div>
-									<p class="mb-0">
-										All Customer
-									</p>
-								</div>
-								<div class="px-3 text-right basis-1/3">
-									<div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
-										<i class="ni leading-none ni-single-02 text-lg relative top-3.5 text-white"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- card2 -->
-				<div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
-					<div class="relative flex flex-col min-w-0 break-words bg-white shadow-xl rounded-2xl bg-clip-border">
-						<div class="flex-auto p-4">
-							<div class="flex flex-row -mx-3">
-								<div class="flex-none w-2/3 max-w-full px-3">
-									<div>
-										<p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Total Income</p>
-										<h5 class="mb-2 font-bold">Rp. 1.000.000 </h5>
-									</div>
-									<p class="mb-0">
-										This Month
-									</p>
-								</div>
-								<div class="px-3 text-right basis-1/3">
-									<div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-red-600 to-orange-600">
-										<i class="ni leading-none ni-money-coins text-lg relative top-3.5 text-white"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- card3 -->
-				<div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
-					<div class="relative flex flex-col min-w-0 break-words bg-white shadow-xl rounded-2xl bg-clip-border">
-						<div class="flex-auto p-4">
-							<div class="flex flex-row -mx-3">
-								<div class="flex-none w-2/3 max-w-full px-3">
-									<div>
-										<p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">New Customer</p>
-										<h5 class="mb-2 font-bold">{{ count_new_user }} Customer</h5>
-									</div>
-									<p class="mb-0">
-										This Month
-									</p>
-								</div>
-								<div class="px-3 text-right basis-1/3">
-									<div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-500 to-teal-400">
-										<i class="ni leading-none ni-single-02 text-lg relative top-3.5 text-white"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- card4 -->
-				<div class="w-full max-w-full px-3 sm:w-1/2 sm:flex-none xl:w-1/4">
-					<div class="relative flex flex-col min-w-0 break-words bg-white shadow-xl rounded-2xl bg-clip-border">
-						<div class="flex-auto p-4">
-							<div class="flex flex-row -mx-3">
-								<div class="flex-none w-2/3 max-w-full px-3">
-									<div>
-										<p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Total Repair</p>
-										<h5 class="mb-2 font-bold">{{ count_repair }} Repair</h5>
-										<p class="mb-0">
-											This Month
-										</p>
-									</div>
-								</div>
-								<div class="px-3 text-right basis-1/3">
-									<div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500">
-										<i class="ni leading-none ni-paper-diploma text-lg relative top-3.5 text-white"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+		<div class="w-full p-7 mx-auto">
+			<div class="mr-12 w-full max-w-full px-3 mb-6">
+				<h1 class="font-bold text-xl text-white capitalize pr-30">Selamat Datang {{ dataName }}</h1>
 			</div>
-
 		</div>
 		<!-- end cards -->
 	</main>

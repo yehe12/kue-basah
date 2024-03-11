@@ -40,7 +40,7 @@ def bossDataPembelianStore():
 @app.route('/data-pembelian')
 def bossDataPembelian():
     if 'loggedin' in session:
-        if session['role'] == 1 :
+        if session['role'] == 1 or session['role'] == 2 :
             
             pembayaranInt = 0
             getPembelianDetail = 0
@@ -65,7 +65,7 @@ def bossDataPembelian():
 
 @app.route('/data-pembelian/store', methods=['POST'])
 def bossDataPembelianDetailStore():
-    if session['role'] == 1:
+    if session['role'] == 1 or session['role'] == 2:
         if request.method == 'POST' and 'id_pengiriman' in request.form and 'id_pembelian' in request.form and 'id_barang' in request.form and 'qty' in request.form and 'total_harga' in request.form and 'neto' in request.form:
 
             id_pembelian = request.form['id_pembelian']
@@ -99,7 +99,7 @@ def bossDataPembelianDetailStore():
 @app.route('/data-pembelian-detail/destroy/<int:id>/<int:qty>/<int:id_pengiriman>', methods = ['GET'])
 def bossDataPembelianDetailDelete(id, qty, id_pengiriman):
     if 'loggedin' in session:
-        if session['role'] == 1 :
+        if session['role'] == 1 or session['role'] == 2:
             Pembelian().deletePembelianDetail(id)
             pengiriman = Pengiriman().selectPengirimanOne(id_pengiriman)
             
