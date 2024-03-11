@@ -7,7 +7,7 @@ from flask import session, render_template, redirect, url_for, request
 @app.route('/data-tagihan')
 def bossDataTagihan():
     if 'loggedin' in session:
-        if session['role'] == 1 :
+        if session['role'] == 1 or session['role'] == 2:
             
             getTagihan = Tagihan().selectTagihan()
             
@@ -21,7 +21,7 @@ def bossDataTagihan():
 @app.route('/data-tagihan/detail', methods = ['POST'])
 def bossDataTagihanOne():
     if 'loggedin' in session:
-        if session['role'] == 1 :
+        if session['role'] == 1 or session['role'] == 2 :
             if request.method == 'POST' and 'create_at' in request.form and 'nama_supplier' in request.form :
                 create_at = request.form['create_at']
                 nama_supplier = request.form['nama_supplier']
