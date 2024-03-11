@@ -27,8 +27,8 @@
 										text-blue-500
 									{% endif %}"></i>
 							</div>
-				{% elif session.name == 'Admin' %}
-				<a class="  {% if request.path == '/admin/dashboard' %}
+				{% elif session.name == 'Shop Keeper' %}
+				<a class="  {% if request.path == '/admin-dashboard' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
 							{% else %}
@@ -37,7 +37,7 @@
 							{% endif %}" href="{{ url_for('adminDashboard') }}">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
 								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
-									{%if request.path == '/admin/dashboard' %}
+									{%if request.path == '/admin-dashboard' %}
 										text-white
 									{% else %}
 										text-blue-500
@@ -64,7 +64,7 @@
 										text-blue-500
 									{% endif %}"></i>
 							</div>
-				{% elif session.name == 'Admin' %}
+				{% elif session.name == 'Shop Keeper' %}
 				<a class="  {% if request.path == '/admin/data-supplier' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
@@ -101,7 +101,7 @@
 										text-blue-500
 									{% endif %}"></i>
 							</div>
-				{% elif session.name == 'Admin' %}
+				{% elif session.name == 'Shop Keeper' %}
 				<a class="  {% if request.path == '/admin/data-barang' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
@@ -138,7 +138,7 @@
 										text-blue-500
 									{% endif %}"></i>
 							</div>
-				{% elif session.name == 'Admin' %}
+				{% elif session.name == 'Shop Keeper' %}
 				<a class="  {% if request.path == '/admin/data-pengiriman' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
@@ -175,7 +175,7 @@
 										text-blue-500
 									{% endif %}"></i>
 							</div>
-				{% elif session.name == 'Admin' %}
+				{% elif session.name == 'Shop Keeper' %}
 				<a class="  {% if request.path == '/admin/data-pembelian' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
@@ -212,7 +212,7 @@
 										text-blue-500
 									{% endif %}"></i>
 							</div>
-				{% elif session.name == 'Admin' %}
+				{% elif session.name == 'Shop Keeper' %}
 				<a class="  {% if request.path == '/admin/data-penjualan' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
@@ -249,7 +249,7 @@
 										text-blue-500
 									{% endif %}"></i>
 							</div>
-				{% elif session.name == 'Admin' %}
+				{% elif session.name == 'Shop Keeper' %}
 				<a class="  {% if request.path == '/admin/data-tagihan' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
@@ -286,7 +286,7 @@
 										text-blue-500
 									{% endif %}"></i>
 							</div>
-				{% elif session.name == 'Admin' %}
+				{% elif session.name == 'Shop Keeper' %}
 				<a class="  {% if request.path == '/admin/data-visualisasi' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
