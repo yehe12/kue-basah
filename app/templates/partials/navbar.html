@@ -1,8 +1,8 @@
 <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-custom-pink border-0 shadow-xl max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0" aria-expanded="false">
-	<div class="h-19">
-		<i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times text-slate-400 xl:hidden" sidenav-close></i>
-		<a class="block px-8 py-4 m-0 text-sm whitespace-nowrap text-slate-700 flex justify-center"> <!-- Tambahkan class "flex justify-center" di sini -->
-			<img src="{{ url_for('static', filename='img/logos/logo-anjing.png') }}" class="inline h-full max-w-full transition-all duration-200 ease-nav-brand max-h-12 rounded-lg" alt="main_logo" />
+	<div class="h-24">
+		<i class="absolute top-0 right-0 opacity-50 cursor-pointer fas fa-times text-slate-400 xl:hidden" sidenav-close></i>
+		<a class="block px-2 pt-2 m-0 text-sm whitespace-nowrap text-slate-700 flex justify-center"> <!-- Tambahkan class "flex justify-center" di sini -->
+			<img src="{{ url_for('static', filename='img/logo-kue.png') }}" class="inline h-full max-w-full transition-all duration-200 ease-nav-brand max-h-17 rounded-xl" alt="main_logo" />
 		</a>
 	</div>
 
@@ -12,7 +12,7 @@
 		<ul class="flex flex-col pl-0 mb-0">        
 			<li class="mt-0.5 w-full">
 				{% if session.name == 'Boss' %}
-				<a class="  {% if request.path == '/boss/dashboard' %}
+				<a class="  {% if request.path == '/dashboard' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
 							{% else %}
@@ -21,7 +21,7 @@
 							{% endif %}" href="{{ url_for('bossDashboard') }}">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
 								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
-									{%if request.path == '/boss/dashboard' %}
+									{%if request.path == '/dashboard' %}
 										text-white
 									{% else %}
 										text-blue-500
@@ -49,7 +49,7 @@
 			</li>
 			<li class="mt-0.5 w-full">
 				{% if session.name == 'Boss' %}
-				<a class="  {% if request.path == '/boss/data-supplier' %}
+				<a class="  {% if request.path == '/data-supplier' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
 							{% else %}
@@ -57,8 +57,8 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="{{ url_for('bossDataSupplier') }}">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
-									{%if request.path == '/boss/data-supplier' %}
+								<i class="relative top-0 text-sm leading-normal fa fa-users
+									{%if request.path == '/data-supplier' %}
 										text-white
 									{% else %}
 										text-blue-500
@@ -73,7 +73,7 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="{{ url_for('adminDashboard') }}">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
+								<i class="relative top-0 text-sm leading-normal fa fa-users
 									{%if request.path == '/admmin/data-supplier' %}
 										text-white
 									{% else %}
@@ -86,7 +86,7 @@
 			</li>
 			<li class="mt-0.5 w-full">
 				{% if session.name == 'Boss' %}
-				<a class="  {% if request.path == '/boss/data-barang' %}
+				<a class="  {% if request.path == '/data-barang' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
 							{% else %}
@@ -94,8 +94,8 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="{{ url_for('bossDataBarang') }}">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
-									{%if request.path == '/boss/data-barang' %}
+								<i class="relative top-0 text-sm leading-normal fas fa-hamburger
+									{%if request.path == '/data-barang' %}
 										text-white
 									{% else %}
 										text-blue-500
@@ -110,7 +110,7 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
+								<i class="relative top-0 text-sm leading-normal fas fa-hamburger
 									{%if request.path == '/admmin/data-barang' %}
 										text-white
 									{% else %}
@@ -123,7 +123,7 @@
 			</li>
 			<li class="mt-0.5 w-full">
 				{% if session.name == 'Boss' %}
-				<a class="  {% if request.path == '/boss/data-pengiriman' %}
+				<a class="  {% if request.path == '/data-pengiriman' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
 							{% else %}
@@ -131,8 +131,8 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="{{ url_for('bossDataPengiriman') }}">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
-									{%if request.path == '/boss/data-pengiriman' %}
+								<i class="relative top-0 text-sm leading-normal fas fa-shipping-fast
+									{%if request.path == '/data-pengiriman' %}
 										text-white
 									{% else %}
 										text-blue-500
@@ -147,7 +147,7 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
+								<i class="relative top-0 text-sm leading-normal fas fa-shipping-fast
 									{%if request.path == '/admmin/data-pengiriman' %}
 										text-white
 									{% else %}
@@ -160,7 +160,7 @@
 			</li>
 			<li class="mt-0.5 w-full">
 				{% if session.name == 'Boss' %}
-				<a class="  {% if request.path == '/boss/data-pembelian' %}
+				<a class="  {% if request.path == '/data-pembelian' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
 							{% else %}
@@ -168,8 +168,8 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="{{ url_for('bossDataPembelian') }}">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
-									{%if request.path == '/boss/data-pembelian' %}
+								<i class="relative top-0 text-sm leading-normal fa fa-shopping-cart
+									{%if request.path == '/data-pembelian' %}
 										text-white
 									{% else %}
 										text-blue-500
@@ -184,7 +184,7 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
+								<i class="relative top-0 text-sm leading-normal fa fa-shopping-cart
 									{%if request.path == '/admmin/data-pembelian' %}
 										text-white
 									{% else %}
@@ -197,7 +197,7 @@
 			</li>
 			<li class="mt-0.5 w-full">
 				{% if session.name == 'Boss' %}
-				<a class="  {% if request.path == '/boss/data-penjualan' %}
+				<a class="  {% if request.path == '/data-penjualan' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
 							{% else %}
@@ -205,8 +205,8 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="{{ url_for('bossDataPenjualan') }}">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
-									{%if request.path == '/boss/data-penjualan' %}
+								<i class="relative top-0 text-sm leading-normal fa fa-money
+									{%if request.path == '/data-penjualan' %}
 										text-white
 									{% else %}
 										text-blue-500
@@ -221,7 +221,7 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
+								<i class="relative top-0 text-sm leading-normal fa fa-money
 									{%if request.path == '/admmin/data-penjualan' %}
 										text-white
 									{% else %}
@@ -234,7 +234,7 @@
 			</li>
 			<li class="mt-0.5 w-full">
 				{% if session.name == 'Boss' %}
-				<a class="  {% if request.path == '/boss/data-tagihan' %}
+				<a class="  {% if request.path == '/data-tagihan' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
 							{% else %}
@@ -242,8 +242,8 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="{{ url_for('bossDataTagihan') }}">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
-									{%if request.path == '/boss/data-tagihan' %}
+								<i class="relative top-0 text-sm leading-normal fas fa-clipboard-list
+									{%if request.path == '/data-tagihan' %}
 										text-white
 									{% else %}
 										text-blue-500
@@ -258,7 +258,7 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
+								<i class="relative top-0 text-sm leading-normal fas fa-clipboard-list
 									{%if request.path == '/admmin/data-tagihan' %}
 										text-white
 									{% else %}
@@ -271,7 +271,7 @@
 			</li>
 			<li class="mt-0.5 w-full">
 				{% if session.name == 'Boss' %}
-				<a class="  {% if request.path == '/boss/data-visualisasi' %}
+				<a class="  {% if request.path == '/data-visualisasi' %}
 								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
 								bg-custom-red font-semibold text-white text-sm ease-nav-brand
 							{% else %}
@@ -279,8 +279,8 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="{{ url_for('bossDataVisualisasi') }}">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
-									{%if request.path == '/boss/data-visualisasi' %}
+								<i class="relative top-0 text-sm leading-normal fa fa-bar-chart
+									{%if request.path == '/data-visualisasi' %}
 										text-white
 									{% else %}
 										text-blue-500
@@ -295,7 +295,7 @@
 								text-sm ease-nav-brand text-slate-700
 							{% endif %}" href="">
 							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal ni ni-tv-2
+								<i class="relative top-0 text-sm leading-normal fa fa-bar-chart
 									{%if request.path == '/admmin/data-visualisasi' %}
 										text-white
 									{% else %}
