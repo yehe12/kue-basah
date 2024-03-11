@@ -5,7 +5,7 @@ from app.models.tagihan import *
 from app.models.pengiriman import *
 from flask import session, render_template, redirect, url_for, request
 
-@app.route('/boss/data-pembelian/pembelian-baru')
+@app.route('/data-pembelian/pembelian-baru')
 def bossDataPembelianStore():
     if 'loggedin' in session:
         if session['role'] == 1 :
@@ -37,7 +37,7 @@ def bossDataPembelianStore():
         
     return redirect(url_for('login'))
 
-@app.route('/boss/data-pembelian')
+@app.route('/data-pembelian')
 def bossDataPembelian():
     if 'loggedin' in session:
         if session['role'] == 1 :
@@ -56,14 +56,14 @@ def bossDataPembelian():
                 if pembayaran[0] and pembayaran is not None:
                     pembayaranInt = int(pembayaran[0])
             
-            return render_template('boss/boss_data_pembelian.html', dataBarang=getBarang, dataPembelianDetail=getPembelianDetail, dataMaxId=getMaxId, totalPembayaran=pembayaranInt)
+            return render_template('menu/data_pembelian.html', dataBarang=getBarang, dataPembelianDetail=getPembelianDetail, dataMaxId=getMaxId, totalPembayaran=pembayaranInt)
         
         else :
             return redirect(url_for('dashboard'))
         
     return redirect(url_for('login'))
 
-@app.route('/boss/data-pembelian/store', methods=['POST'])
+@app.route('/data-pembelian/store', methods=['POST'])
 def bossDataPembelianDetailStore():
     if session['role'] == 1:
         if request.method == 'POST' and 'id_pengiriman' in request.form and 'id_pembelian' in request.form and 'id_barang' in request.form and 'qty' in request.form and 'total_harga' in request.form and 'neto' in request.form:
@@ -96,7 +96,7 @@ def bossDataPembelianDetailStore():
 
     return redirect(url_for('login'))
 
-@app.route('/boss/data-pembelian-detail/destroy/<int:id>/<int:qty>/<int:id_pengiriman>', methods = ['GET'])
+@app.route('/data-pembelian-detail/destroy/<int:id>/<int:qty>/<int:id_pengiriman>', methods = ['GET'])
 def bossDataPembelianDetailDelete(id, qty, id_pengiriman):
     if 'loggedin' in session:
         if session['role'] == 1 :

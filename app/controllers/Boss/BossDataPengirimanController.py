@@ -4,7 +4,7 @@ from app.models.supplier import *
 from app.models.pengiriman import *
 from flask import session, render_template, redirect, url_for, request
 
-@app.route('/boss/data-pengiriman')
+@app.route('/data-pengiriman')
 def bossDataPengiriman():
     if 'loggedin' in session:
         if session['role'] == 1 :
@@ -13,14 +13,14 @@ def bossDataPengiriman():
             getSupplier = Supplier().selectSupplier()
             getBarang = Barang().selectBarang()
             
-            return render_template('boss/boss_data_pengiriman.html', dataPengiriman=getPengiriman, dataSupplier=getSupplier, dataBarang=getBarang)
+            return render_template('menu/data_pengiriman.html', dataPengiriman=getPengiriman, dataSupplier=getSupplier, dataBarang=getBarang)
         
         else :
             return redirect(url_for('dashboard'))
         
     return redirect(url_for('login'))
 
-@app.route('/boss/data-pengiriman/store', methods=['POST'])
+@app.route('/data-pengiriman/store', methods=['POST'])
 def bossDataPengirimanStore():
     if session['role'] == 1:
         if request.method == 'POST' and 'id_barang' in request.form and 'stok' in request.form :
@@ -37,20 +37,20 @@ def bossDataPengirimanStore():
 
     return redirect(url_for('login'))
 
-@app.route('/boss/data-pengiriman/detail/<int:id>', methods = ['GET'])
+@app.route('/data-pengiriman/detail/<int:id>', methods = ['GET'])
 def bossDataPengirimanOne(id):
     if 'loggedin' in session:
         if session['role'] == 1 :
             getPengirimanOne = Pengiriman().selectPengirimanOne(id)
 
-            return render_template('boss/boss_data_pengiriman_detail.html', dataPengirimanOne=getPengirimanOne)
+            return render_template('menu/data_pengiriman_detail.html', dataPengirimanOne=getPengirimanOne)
 
         else :
             return redirect(url_for('dashboard'))
 
     return redirect(url_for('login'))
 
-@app.route('/boss/data-pengiriman/detail/update', methods =['POST'])
+@app.route('/data-pengiriman/detail/update', methods =['POST'])
 def bossDataPengirimanUpdate():
     if 'loggedin' in session:
         if session['role'] == 1 :

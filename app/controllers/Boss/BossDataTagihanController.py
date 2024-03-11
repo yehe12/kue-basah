@@ -4,21 +4,21 @@ from app.models.pengiriman import *
 from app.models.barang import *
 from flask import session, render_template, redirect, url_for, request
 
-@app.route('/boss/data-tagihan')
+@app.route('/data-tagihan')
 def bossDataTagihan():
     if 'loggedin' in session:
         if session['role'] == 1 :
             
             getTagihan = Tagihan().selectTagihan()
             
-            return render_template('boss/boss_data_tagihan.html', dataTagihan=getTagihan)
+            return render_template('menu/data_tagihan.html', dataTagihan=getTagihan)
         
         else :
             return redirect(url_for('dashboard'))
         
     return redirect(url_for('login'))
 
-@app.route('/boss/data-tagihan/detail', methods = ['POST'])
+@app.route('/data-tagihan/detail', methods = ['POST'])
 def bossDataTagihanOne():
     if 'loggedin' in session:
         if session['role'] == 1 :
@@ -28,7 +28,7 @@ def bossDataTagihanOne():
             
                 getPengirimanOne = Tagihan().selectPengirimanOne(create_at, nama_supplier)
 
-            return render_template('boss/boss_data_tagihan_detail.html', dataPengirimanOne=getPengirimanOne)
+            return render_template('menu/data_tagihan_detail.html', dataPengirimanOne=getPengirimanOne)
 
         else :
             return redirect(url_for('dashboard'))

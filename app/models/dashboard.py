@@ -7,36 +7,33 @@ class Dashboard:
     def selectProfitDay(self):
         
         cursor = mysql.get_db().cursor()
-        select_query = "select sum(laba) from pembelian p WHERE DATE(`timestamp`) = CURDATE()"
+        select_query = "select sum(laba) from pembelian p WHERE DATE(timestamp) = CURDATE()"
         cursor.execute(select_query)
         profitDay = cursor.fetchone()[0]
         
         return profitDay
     
-    # def selectProfitWeek(self):
+    def selectProfitWeek(self):
         
-    #     self.id = id
+        cursor = mysql.get_db().cursor()
+        select_query = "SELECT sum(laba) FROM pembelian WHERE DATE(timestamp) BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 6 DAY) AND CURRENT_DATE()"
+        cursor.execute(select_query)
+        profitWeek = cursor.fetchone()[0]
         
-    #     cursor = mysql.get_db().cursor()
-    #     select_query = "SELECT stok, sisa FROM pengiriman WHERE id = %s"
-    #     cursor.execute(select_query, (self.id))
-    #     count = cursor.fetchone()
-        
-    #     return count
+        return profitWeek
     
-    # def selectOmsetDay(self):
-    #     cursor = mysql.get_db().cursor()
-    #     select_query = "SELECT *, pengiriman.laku * barang.harga_beli AS total_harga_beli, date(pengiriman.create_at) from pengiriman INNER JOIN barang ON pengiriman.id_barang=barang.id INNER JOIN supplier ON barang.id_supplier = supplier.id ORDER BY pengiriman.create_at DESC"
-    #     cursor.execute(select_query)
-    #     dataPengiriman = cursor.fetchall()
+    def selectOmsetDay(self):
+        cursor = mysql.get_db().cursor()
+        select_query = "SELECT sum(uang_masuk) FROM pembelian WHERE DATE(timestamp) = CURDATE()"
+        cursor.execute(select_query)
+        omsetDay =  cursor.fetchone()[0]
 
-    #     return dataPengiriman
-        
-    # def selectOmsetWeek(self, id):
-    #     self.id = id
-    #     cursor = mysql.get_db().cursor()
-    #     select_one = "SELECT *, pengiriman.laku * barang.harga_beli AS total_harga_beli from pengiriman INNER JOIN barang ON pengiriman.id_barang=barang.id INNER JOIN supplier ON barang.id_supplier = supplier.id where pengiriman.id = %s"
-    #     cursor.execute(select_one, (self.id))
-    #     dataBarangOne = cursor.fetchone()
+        return omsetDay
+    
+    def selectOmsetWeek(self):
+        cursor = mysql.get_db().cursor()
+        select_query = "SELECT sum(uang_masuk) FROM pembelian WHERE DATE(timestamp) BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 6 DAY) AND CURRENT_DATE()"
+        cursor.execute(select_query)
+        omsetWeek =  cursor.fetchone()[0]
 
-    #     return dataBarangOne
+        return omsetWeek

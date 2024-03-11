@@ -3,21 +3,21 @@ from app.models.supplier import *
 from app.models.barang import *
 from flask import session, render_template, redirect, url_for, request
 
-@app.route('/boss/data-supplier')
+@app.route('/data-supplier')
 def bossDataSupplier():
     if 'loggedin' in session:
         if session['role'] == 1 :
             
             getSupplier = Supplier().selectSupplier()
             
-            return render_template('boss/boss_data_supplier.html', dataSupplier=getSupplier)
+            return render_template('menu/data_supplier.html', dataSupplier=getSupplier)
         
         else :
             return redirect(url_for('dashboard'))
         
     return redirect(url_for('login'))
 
-@app.route('/boss/data-supplier/store', methods=['POST'])
+@app.route('/data-supplier/store', methods=['POST'])
 def bossDataSupplierStore():
     if session['role'] == 1:
         if request.method == 'POST' and 'nama_suplier' in request.form and 'nomor_telepon' in request.form and 'status' in request.form and 'alamat' in request.form:
@@ -35,21 +35,21 @@ def bossDataSupplierStore():
 
     return redirect(url_for('login'))
 
-@app.route('/boss/data-supplier/detail/<int:id>', methods = ['GET'])
+@app.route('/data-supplier/detail/<int:id>', methods = ['GET'])
 def bossDataSupplierOne(id):
     if 'loggedin' in session:
         if session['role'] == 1 :
             getSupplierOne = Supplier().selectSupplierOne(id)
             getBarangSupplier = Barang().selectBarangSupplier(id)
 
-            return render_template('boss/boss_data_supplier_detail.html', dataSupplierOne=getSupplierOne, dataBarangSupplier=getBarangSupplier)
+            return render_template('menu/data_supplier_detail.html', dataSupplierOne=getSupplierOne, dataBarangSupplier=getBarangSupplier)
 
         else :
             return redirect(url_for('dashboard'))
 
     return redirect(url_for('login'))
 
-@app.route('/boss/data-supplier/detail/update', methods =['POST'])
+@app.route('/data-supplier/detail/update', methods =['POST'])
 def bossDataSupplierUpdate():
     if 'loggedin' in session:
         if session['role'] == 1 :
@@ -69,7 +69,7 @@ def bossDataSupplierUpdate():
         
     return redirect(url_for('login'))
 
-@app.route('/boss/data-supplier/destroy/<int:id>', methods = ['GET'])
+@app.route('/data-supplier/destroy/<int:id>', methods = ['GET'])
 def bossDataSupplierDelete(id):
     if 'loggedin' in session:
         if session['role'] == 1 :
@@ -78,7 +78,7 @@ def bossDataSupplierDelete(id):
             
             if data > 0:
                 mesage = 'Tidak dapat menghapus supplier karena masih terdapat data Barang!'
-                return render_template('boss/boss_data_supplier.html', dataSupplier=getSupplier, mesage = mesage)
+                return render_template('menu/data_supplier.html', dataSupplier=getSupplier, mesage = mesage)
             
             else:
                 return redirect(url_for('bossDataSupplier'))

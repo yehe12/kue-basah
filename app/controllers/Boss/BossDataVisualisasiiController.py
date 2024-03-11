@@ -3,7 +3,7 @@ from app.models.visualisasi import *
 from app.models.barang import *
 from flask import session, render_template, redirect, url_for, request
 
-@app.route('/boss/data-visualisasi')
+@app.route('/data-visualisasi')
 def bossDataVisualisasi():
     if 'loggedin' in session:
         if session['role'] == 1 :
@@ -21,14 +21,14 @@ def bossDataVisualisasi():
             
             getReturnMingguan = Visualisasi().selectReturnMingguan()
             
-            return render_template('boss/boss_data_visualisasi.html', dataReturnMingguan = getReturnMingguan, dataPerbandingan = "", dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, dataOmsetMingguan = getOmsetMingguan, dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan)
+            return render_template('menu/data_visualisasi.html', dataReturnMingguan = getReturnMingguan, dataPerbandingan = "", dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, dataOmsetMingguan = getOmsetMingguan, dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan)
         
         else :
             return redirect(url_for('dashboard'))
         
     return redirect(url_for('login'))
 
-@app.route('/boss/data-visualisasi-perbandingan', methods =['POST'])
+@app.route('/data-visualisasi-perbandingan', methods =['POST'])
 def bossDataVisualisasiPerbandingan():
     if 'loggedin' in session:
         if session['role'] == 1 :
@@ -56,7 +56,7 @@ def bossDataVisualisasiPerbandingan():
 
                 print("data ne : ", getPerbandingan)
                 
-                return render_template('boss/boss_data_visualisasi.html', dataReturnMingguan = getReturnMingguan, dataPerbandingan = getPerbandingan, dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, dataOmsetMingguan = getOmsetMingguan, dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan)
+                return render_template('menu/data_visualisasi.html', dataReturnMingguan = getReturnMingguan, dataPerbandingan = getPerbandingan, dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, dataOmsetMingguan = getOmsetMingguan, dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan)
 
         else :
             return redirect(url_for('dashboard'))

@@ -5,7 +5,7 @@
 {% block content %}
 
 <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
-	<div class="absolute w-full bg-custom-pink min-h-75"></div>
+	<div class="absolute w-full bg-custom-yellow min-h-75"></div>
 	
 	{% include 'partials/navbar.html' %}
 
@@ -42,13 +42,15 @@
 							<div class="flex flex-row -mx-3">
 								<div class="flex-none w-2/3 max-w-full px-3">
 									<div>
-										<p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Total Income</p>
+										<p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Profit</p>
 										{% if dataProfitDay %}
-										<h5 class="mb-2 font-bold">Rp. {{ "{:,}".format(dataProfitDay).replace(",",".") }}</h5>
+										<h5 class="mt-2 font-bold">Rp. {{ "{:,}".format(dataProfitDay).replace(",",".") }}</h5>
+											{% else %}
+											<h5 class="mt-2 font-bold">Rp. 0</h5>
 										{% endif %}
 									</div>
 									<p class="mb-0">
-										This Month
+										This Day
 									</p>
 								</div>
 								<div class="px-3 text-right basis-1/3">
@@ -66,16 +68,20 @@
 							<div class="flex flex-row -mx-3">
 								<div class="flex-none w-2/3 max-w-full px-3">
 									<div>
-										<p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Total Repair</p>
-										<h5 class="mb-2 font-bold">20 Repair</h5>
+										<p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Profit</p>
+										{% if dataProfitWeek %}
+										<h5 class="mt-2 font-bold">Rp. {{ "{:,}".format(dataProfitWeek).replace(",",".") }}</h5>
+											{% else %}
+											<h5 class="mt-2 font-bold">Rp. 0</h5>
+										{% endif %}
 										<p class="mb-0">
-											This Month
+											This Week
 										</p>
 									</div>
 								</div>
 								<div class="px-3 text-right basis-1/3">
 									<div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-500 to-teal-400">
-										<i class="ni leading-none ni-paper-diploma text-lg relative top-3.5 text-white"></i>
+										<i class="ni leading-none ni-money-coins text-lg relative top-3.5 text-white"></i>
 									</div>
 								</div>
 							</div>
@@ -88,10 +94,14 @@
 							<div class="flex flex-row -mx-3">
 								<div class="flex-none w-2/3 max-w-full px-3">
 									<div>
-										<p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">In Repair</p>
-										<h5 class="mb-2 font-bold">30 Repair</h5>
+										<p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Omset</p>
+										{% if dataOmsetDay %}
+										<h5 class="mt-2 font-bold">Rp. {{ "{:,}".format(dataOmsetDay).replace(",",".") }}</h5>
+											{% else %}
+											<h5 class="mt-2 font-bold">Rp. 0</h5>
+										{% endif %}
 										<p class="mb-0">
-											This Month
+											This Day
 										</p>
 									</div>
 								</div>
@@ -110,16 +120,20 @@
 							<div class="flex flex-row -mx-3">
 								<div class="flex-none w-2/3 max-w-full px-3">
 									<div>
-										<p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Customer</p>
-										<h5 class="mb-2 font-bold">100 Customer</h5>
+										<p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Omset</p>
+										{% if dataOmsetWeek %}
+										<h5 class="mt-2 font-bold">Rp. {{ "{:,}".format(dataOmsetWeek).replace(",",".") }}</h5>
+											{% else %}
+											<h5 class="mt-2 font-bold">Rp. 0</h5>
+										{% endif %}
+										<p class="mb-0">
+											This Week
+										</p>
 									</div>
-									<p class="mb-0">
-										All Customer
-									</p>
 								</div>
 								<div class="px-3 text-right basis-1/3">
 									<div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
-										<i class="ni leading-none ni-single-02 text-lg relative top-3.5 text-white"></i>
+										<i class="ni leading-none ni-paper-diploma text-lg relative top-3.5 text-white"></i>
 									</div>
 								</div>
 							</div>
