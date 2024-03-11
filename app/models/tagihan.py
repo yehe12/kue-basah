@@ -70,3 +70,26 @@ class Tagihan:
         cursor.close()
         
         return
+    
+    def selectIdBarang(self, create_at, nama_supplier):
+        self.create_at = create_at
+        self.nama_supplier = nama_supplier
+        
+        cursor = mysql.get_db().cursor()
+        
+        select_query = "SELECT distinct  tagihan.id_barang FROM tagihan JOIN barang ON tagihan.id_barang = barang.id JOIN supplier ON barang.id_supplier = supplier.id WHERE DATE(tagihan.create_at) = DATE(%s) AND supplier.nama_suplier = %s"
+        cursor.execute(select_query, (self.create_at, self.nama_supplier))
+        
+        dataIdBarang = cursor.fetchall()
+        
+        return dataIdBarang, self.create_at
+    
+    def updateStatus(self, id, create_at):
+        self.create_at = create_at
+        self.id = id
+        
+        cursor = mysql.get_db().cursor()
+        update_query = "UPDATE tagihan SET status = 'Lunas' WHERE id_barang = %s AND DATE(tagihan.create_at) = DATE(%s)"
+        cursor.execute(update_query, (self.id, self.create_at))
+        mysql.get_db().commit()
+        cursor.close()
