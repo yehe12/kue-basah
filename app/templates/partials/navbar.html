@@ -64,24 +64,11 @@
 										text-blue-500
 									{% endif %}"></i>
 							</div>
+
+							<span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Data Supplier</span>
 				{% elif session.name == 'Shop Keeper' %}
-				<a class="  {% if request.path == '/admin/data-supplier' %}
-								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
-								bg-custom-red font-semibold text-white text-sm ease-nav-brand
-							{% else %}
-								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
-								text-sm ease-nav-brand text-slate-700
-							{% endif %}" href="{{ url_for('adminDashboard') }}">
-							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal fa fa-users
-									{%if request.path == '/admmin/data-supplier' %}
-										text-white
-									{% else %}
-										text-blue-500
-									{% endif %}"></i>
-							</div>
+				
 				{% endif %}
-					<span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Data Supplier</span>
 				</a>
 			</li>
 			<li class="mt-0.5 w-full">
@@ -101,24 +88,11 @@
 										text-blue-500
 									{% endif %}"></i>
 							</div>
+
+							<span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Data Barang</span>
 				{% elif session.name == 'Shop Keeper' %}
-				<a class="  {% if request.path == '/admin/data-barang' %}
-								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
-								bg-custom-red font-semibold text-white text-sm ease-nav-brand
-							{% else %}
-								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
-								text-sm ease-nav-brand text-slate-700
-							{% endif %}" href="">
-							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal fas fa-hamburger
-									{%if request.path == '/admmin/data-barang' %}
-										text-white
-									{% else %}
-										text-blue-500
-									{% endif %}"></i>
-							</div>
+				
 				{% endif %}
-					<span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Data Barang</span>
 				</a>
 			</li>
 			<li class="mt-0.5 w-full">
@@ -286,24 +260,10 @@
 										text-blue-500
 									{% endif %}"></i>
 							</div>
+							<span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Visualisasi Data</span>
 				{% elif session.name == 'Shop Keeper' %}
-				<a class="  {% if request.path == '/admin/data-visualisasi' %}
-								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
-								bg-custom-red font-semibold text-white text-sm ease-nav-brand
-							{% else %}
-								my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 py-2.7 
-								text-sm ease-nav-brand text-slate-700
-							{% endif %}" href="">
-							<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-								<i class="relative top-0 text-sm leading-normal fa fa-bar-chart
-									{%if request.path == '/admmin/data-visualisasi' %}
-										text-white
-									{% else %}
-										text-blue-500
-									{% endif %}"></i>
-							</div>
+				
 				{% endif %}
-					<span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Visualisasi Data</span>
 				</a>
 			</li>
 		</ul>
