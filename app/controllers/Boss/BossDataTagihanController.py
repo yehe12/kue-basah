@@ -2,6 +2,7 @@ from app import app
 from app.models.tagihan import *
 from app.models.pengiriman import *
 from app.models.barang import *
+from app.models.supplier import *
 from flask import session, render_template, redirect, url_for, request
 
 @app.route('/data-tagihan')
@@ -51,7 +52,11 @@ def bossDataIdBarang():
                 for data in getIdBarang :
                     Tagihan().updateStatus(data, date)
                     
-                email = "ma22052000@gmail.com"
+                # email = "ma22052000@gmail.com"
+                
+                email = Supplier().selectEmail(nama_supplier)
+                
+                print(email)
                 
                 Tagihan().sendEmail(email, jumlah_tagihan, getFullTagihan)
                 
