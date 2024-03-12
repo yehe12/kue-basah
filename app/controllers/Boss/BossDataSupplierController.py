@@ -20,13 +20,14 @@ def bossDataSupplier():
 @app.route('/data-supplier/store', methods=['POST'])
 def bossDataSupplierStore():
     if session['role'] == 1:
-        if request.method == 'POST' and 'nama_suplier' in request.form and 'nomor_telepon' in request.form and 'status' in request.form and 'alamat' in request.form:
+        if request.method == 'POST' and 'nama_suplier' in request.form and 'nomor_telepon' in request.form and 'status' in request.form and 'alamat' in request.form and 'email' in request.form:
             nama_suplier = request.form['nama_suplier']
             nomor_telepon = request.form['nomor_telepon']
             status = request.form.getlist('status')
             alamat = request.form['alamat']
+            email = request.form['email']
 
-            Supplier().insertSupplier(nama_suplier, nomor_telepon, status, alamat)
+            Supplier().insertSupplier(nama_suplier, nomor_telepon, status, alamat, email)
 
             return redirect(url_for('bossDataSupplier'))
         
@@ -53,14 +54,15 @@ def bossDataSupplierOne(id):
 def bossDataSupplierUpdate():
     if 'loggedin' in session:
         if session['role'] == 1 :
-            if request.method == 'POST' and 'nama_suplier' in request.form and 'nomor_telepon' in request.form and 'status' in request.form and 'alamat' in request.form:
+            if request.method == 'POST' and 'nama_suplier' in request.form and 'nomor_telepon' in request.form and 'status' in request.form and 'alamat' in request.form and 'email' in request.form:
                 id = request.form['id']
                 nama_suplier = request.form['nama_suplier']
                 nomor_telepon = request.form['nomor_telepon']
                 status = request.form.getlist('status')
                 alamat = request.form['alamat']
+                email = request.form['email']
 
-                Supplier().updateSupplier(id, nama_suplier, nomor_telepon, status, alamat)
+                Supplier().updateSupplier(id, nama_suplier, nomor_telepon, status, alamat, email)
 
                 return redirect(url_for('bossDataSupplier'))
 
