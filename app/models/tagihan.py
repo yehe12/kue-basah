@@ -58,14 +58,15 @@ class Tagihan:
         
         return dataBarangOne
     
-    def insertTagihan(self, id_barang, qty, neto):
+    def insertTagihan(self, id_pembelian, id_barang, qty, neto):
+        self.id_pembelian = id_pembelian
         self.id_barang = id_barang
         self.qty = qty
         self.neto = neto
 
         cursor = mysql.get_db().cursor()
-        insert_query = "INSERT INTO tagihan (id_barang, qty, neto, status, create_at) VALUES (%s, %s, %s, 'Belum Lunas', now())"
-        cursor.execute(insert_query, (self.id_barang, self.qty, self.neto))
+        insert_query = "INSERT INTO tagihan (id_pembelian, id_barang, qty, neto, status, create_at) VALUES (%s, %s, %s, %s, 'Belum Lunas', now())"
+        cursor.execute(insert_query, (self.id_pembelian, self.id_barang, self.qty, self.neto))
         mysql.get_db().commit()
         cursor.close()
         
@@ -94,15 +95,56 @@ class Tagihan:
         mysql.get_db().commit()
         cursor.close()
         
-    def sendEmail(self, email):
-
-        self.email = email
-
+    def deleteTagihan(self, id_pembelian, id_barang):
+        self.id_pembelian = id_pembelian
+        self.id_barang = id_barang
         cursor = mysql.get_db().cursor()
-        msg = Message(subject='Pemberitahuan Status Pembayaran Tagihan', sender = 'orang', recipients = [email])
-        msg.body = "Status pembayaran tagihan makanan telah bayar"
-        
-        mail.send(msg)
 
+        delete_query = "DELETE FROM tagihan WHERE id_pembelian=%s AND id_barang = %s"
+        cursor.execute(delete_query, (self.id_pembelian, self.id_barang))
         mysql.get_db().commit()
         cursor.close()
+        
+    def selectFullTagihan(self, nama_supplier, create_at):
+        
+        self.create_at = create_at
+        self.nama_supplier = nama_supplier
+        
+        cursor = mysql.get_db().cursor()
+        select_query = """
+                        select barang.nama_barang, barang.harga_beli, pengiriman.stok, pengiriman.sisa, pengiriman.laku, date(pengiriman.create_at )
+                        from pengiriman
+                        join barang on barang.id = pengiriman.id_barang 
+                        join supplier on supplier.id = barang.id_supplier
+                        where supplier.nama_suplier = %s
+                        and date(pengiriman.create_at) = date(%s)"""
+                        
+        cursor.execute(select_query, (self.nama_supplier, self.create_at))
+        
+        dataFullTagihan = cursor.fetchall()
+        
+        return dataFullTagihan
+            
+    def sendEmail(self, email, jumlah_tagihan, dataFullTagihan):
+        self.email = email
+        self.dataFullTagihan = dataFullTagihan
+        self.jumlah_tagihan = jumlah_tagihan
+
+        email_body = "Daftar Barang : \n\n"
+
+        for row in self.dataFullTagihan:
+            email_body += f"Tanggal Pengiriman : {row[5]}\n"
+            email_body += f"Nama Barang : {row[0]}\n"
+            email_body += f"Harga : {row[1]}\n"
+            email_body += f"Stok : {row[2]}\n"
+            email_body += f"Sisa : {row[3]}\n"
+            email_body += f"Laku : {row[4]}\n"
+            email_body += f"Jumlah Harga : {row[1] * row[4]}"
+            email_body += "\n__________________________________________\n"
+        
+        email_body += f"\n Jumlah Tagihan : {self.jumlah_tagihan}"
+            
+        msg = Message(subject='Pemberitahuan Status Pembayaran Tagihan', sender='orang@example.com', recipients=[email])
+        msg.body = email_body
+        
+        mail.send(msg)

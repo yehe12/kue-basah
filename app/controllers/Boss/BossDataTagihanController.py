@@ -39,17 +39,22 @@ def bossDataTagihanOne():
 def bossDataIdBarang():
     if 'loggedin' in session:
         if session['role'] == 1 or session['role'] == 2 :
-            if request.method == 'POST' and 'create_at' in request.form and 'nama_supplier' in request.form :
+            if request.method == 'POST' and 'create_at' in request.form and 'nama_supplier' in request.form and 'jumlah_tagihan' in request.form :
                 create_at = request.form['create_at']
                 nama_supplier = request.form['nama_supplier']
+                jumlah_tagihan = request.form['jumlah_tagihan']
             
                 getIdBarang, date = Tagihan().selectIdBarang(create_at, nama_supplier)
+                
+                getFullTagihan = Tagihan().selectFullTagihan(nama_supplier, create_at)
                 
                 for data in getIdBarang :
                     Tagihan().updateStatus(data, date)
                     
-                email = "sakkarepkupokok123@gmail.com"
-                Tagihan().sendEmail(email)
+                email = "ma22052000@gmail.com"
+                
+                Tagihan().sendEmail(email, jumlah_tagihan, getFullTagihan)
+                
             
             return redirect(url_for('bossDataTagihan'))
 

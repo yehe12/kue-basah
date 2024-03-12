@@ -85,7 +85,7 @@ def bossDataPembelianDetailStore():
                 sisa = sisa - qty
                 laku = laku + qty
             
-                Tagihan().insertTagihan(id_barang, qty, neto)
+                Tagihan().insertTagihan(id_pembelian, id_barang, qty, neto)
                 Pembelian().updateStockPengiriman(id_pengiriman, sisa, laku)
                 Pembelian().insertPembelianDetail(id_pembelian, id_barang, qty, total_harga, neto, id_pengiriman)
 
@@ -96,10 +96,12 @@ def bossDataPembelianDetailStore():
 
     return redirect(url_for('login'))
 
-@app.route('/data-pembelian-detail/destroy/<int:id>/<int:qty>/<int:id_pengiriman>', methods = ['GET'])
-def bossDataPembelianDetailDelete(id, qty, id_pengiriman):
+@app.route('/data-pembelian-detail/destroy/<int:id>/<int:qty>/<int:id_pengiriman>/<int:id_pembelian>/<int:id_barang>', methods = ['GET'])
+def bossDataPembelianDetailDelete(id, qty, id_pengiriman, id_pembelian, id_barang):
     if 'loggedin' in session:
         if session['role'] == 1 or session['role'] == 2:
+            
+            Tagihan().deleteTagihan(id_pembelian, id_barang)
             Pembelian().deletePembelianDetail(id)
             pengiriman = Pengiriman().selectPengirimanOne(id_pengiriman)
             
