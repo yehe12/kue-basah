@@ -129,6 +129,8 @@ class Tagihan:
         self.email = email
         self.dataFullTagihan = dataFullTagihan
         self.jumlah_tagihan = jumlah_tagihan
+        
+        email = self.email[0]
 
         email_body = "Daftar Barang : \n\n"
 

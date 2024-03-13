@@ -51,12 +51,8 @@ def bossDataIdBarang():
                 
                 for data in getIdBarang :
                     Tagihan().updateStatus(data, date)
-                    
-                # email = "ma22052000@gmail.com"
                 
                 email = Supplier().selectEmail(nama_supplier)
-                
-                print(email)
                 
                 Tagihan().sendEmail(email, jumlah_tagihan, getFullTagihan)
                 
