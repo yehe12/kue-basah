@@ -8,7 +8,7 @@ from flask import session, render_template, redirect, url_for, request
 @app.route('/data-pembelian/pembelian-baru')
 def bossDataPembelianStore():
     if 'loggedin' in session:
-        if session['role'] == 1 :
+        if session['role'] == 1 or session['role'] == 2:
             
             hitung = 0
             uang_keluarInt = 0
