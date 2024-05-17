@@ -4,8 +4,8 @@ from app.config.key import *
 from flaskext.mysql import MySQL
 
 db_user = 'root'
-db_password = 'user'
-db_name = 'kue-basah'
+db_password = 'yehez123'
+db_name = 'kue_basah'
 db_host = 'localhost'
 
 app.config['MYSQL_DATABASE_USER'] = db_user

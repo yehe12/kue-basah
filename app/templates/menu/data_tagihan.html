@@ -97,7 +97,7 @@
 														</form>
 													</div>
 													<div class="inline-block ">
-														<form action="{{ url_for('bossDataIdBarang') }}" method="POST" autocomplete="off">
+														<form action="{{ url_for('bossSendEmail') }}" method="POST" autocomplete="off">
 															<input  type="hidden" name="create_at" id="create_at" required value="{{ data.0 }}"/>
 															<input  type="hidden" name="nama_supplier" id="nama_supplier" required value="{{ data.1 }}"/>
 															<input  type="hidden" name="jumlah_tagihan" id="jumlah_tagihan" required value="{{ data.3 }}"/>

@@ -1,3 +1,4 @@
-venv\Scripts\activate
-cd D:\abdul\kue-basah
+env\Scripts\activate
+cd D:\"judul skripsi baru"\program\kue-basah
+D:
 flask run
