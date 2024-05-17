@@ -37,7 +37,7 @@ def bossDataTagihanOne():
     return redirect(url_for('login'))
 
 @app.route('/data-tagihan/send', methods = ['POST'])
-def bossDataIdBarang():
+def bossSendEmail():
     if 'loggedin' in session:
         if session['role'] == 1 or session['role'] == 2 :
             if request.method == 'POST' and 'create_at' in request.form and 'nama_supplier' in request.form and 'jumlah_tagihan' in request.form :

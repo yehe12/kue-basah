@@ -146,7 +146,7 @@ class Tagihan:
         
         email_body += f"\n Jumlah Tagihan : {self.jumlah_tagihan}"
             
-        msg = Message(subject='Pemberitahuan Status Pembayaran Tagihan', sender='orang@example.com', recipients=[email])
+        msg = Message(subject='Pemberitahuan Status Pembayaran Tagihan', sender='kuelestarii@gmail.com', recipients=[email])
         msg.body = email_body
         
         mail.send(msg)

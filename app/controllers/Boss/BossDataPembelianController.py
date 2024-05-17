@@ -56,7 +56,7 @@ def bossDataPembelian():
                 if pembayaran[0] and pembayaran is not None:
                     pembayaranInt = int(pembayaran[0])
             
-            return render_template('menu/data_pembelian.html', dataBarang=getBarang, dataPembelianDetail=getPembelianDetail, dataMaxId=getMaxId, totalPembayaran=pembayaranInt)
+            return render_template('menu/kasir.html', dataBarang=getBarang, dataPembelianDetail=getPembelianDetail, dataMaxId=getMaxId, totalPembayaran=pembayaranInt)
         
         else :
             return redirect(url_for('dashboard'))
