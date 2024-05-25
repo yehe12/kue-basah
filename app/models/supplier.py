@@ -54,20 +54,20 @@ class Supplier:
         cursor = mysql.get_db().cursor()
         
         # Pengecekan apakah ada referensi foreign key yang masih aktif
-        check_query = "SELECT COUNT(*) FROM barang WHERE id_supplier = %s"
-        cursor.execute(check_query, (self.id,))
-        count = cursor.fetchone()[0]
+        # check_query = "SELECT COUNT(*) FROM barang WHERE id_supplier = %s"
+        # cursor.execute(check_query, (self.id,))
+        # count = cursor.fetchone()[0]
         
-        if count > 0:
-            return count
+        # if count > 0:
+        #     return count
         
-        else:
-            delete_query = "DELETE FROM supplier WHERE id=%s"
-            cursor.execute(delete_query, (self.id))
-            mysql.get_db().commit()
-            cursor.close()
+        # else:
+        delete_query = "DELETE FROM supplier WHERE id=%s"
+        cursor.execute(delete_query, (self.id))
+        mysql.get_db().commit()
+        cursor.close()
             
-            return count
+            # return count
         
     def selectEmail(self, nama_suplier):
         
