@@ -67,7 +67,11 @@
 												selected
 											{% endif %}
 										>Profit</option>
-										<option value="return">Return</option>
+										<option value="return"
+										{% if dataCustomReturn %}
+												selected
+											{% endif %}
+										>Return</option>
 										<option value="perbandingan">Perbandingan</option>
 									</select>
 								</div>
@@ -243,18 +247,60 @@
 									{% endif %}
 								</div>
 
-								<div id="return" style="display: none;" class=" pt-4">
+								<div id="return" 
+									{% if dataCustomReturn %}
+										style="display: block;"
+									{% else %}
+										style="display: none;"
+									{% endif %}
+								class=" pt-4">
 									<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
 										<label for="status" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Return</label>
 										<select class="form-control focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
 											id="status" required name="status" onchange="selectReturnFilter(this.value)">
 											<option class="dropdown-item " name="status" value=""> Pilih </option>
 											<option class="dropdown-item " name="status" value="week"> Minggu </option>
+											<option class="dropdown-item" name="status" value="custom"> Custom </option>
 										</select>
 									</div>
-									<div id="returnChartContainer" style="width: 0;height: 2">
-										<canvas id="returnChart"></canvas>
+									<div id="customReturnDate"
+										{% if dataCustomReturn %}
+											style="display: block;"
+										{% else %}
+											style="display: none;"
+										{% endif %}
+									class=" pt-4">
+										<div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+											<form action="{{ url_for('bossDataVisualisasiCustomReturn') }}" method="POST" autocomplete="off">
+												<div class="flex flex-wrap -mx-3 pb-6 relative">
+													<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+														<label for="tanggal_awal" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Tanggal Awal</label>
+														<input type="date" name="tanggal_awal" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"/>
+													</div>
+													<div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+														<label for="tanggal_akhir" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Tanggal Akhir</label>
+														<input type="date" name="tanggal_akhir" required class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+													</div>
+													<div class="right-0 bottom-6 absolute mt-5 w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
+														<button type="submit" class="inline-block w-full py-3 mt-8 mb-0 font-bold leading-normal text-center text-white align-middle transition-all bg-green-500 border-0 rounded-lg cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25">Add</button>
+													</div>
+												</div>
+											</form>
+										</div>
 									</div>
+									<label id="dateCustomReturn" class=" mb-2 ml-8 font-bold text-xs text-slate-700"> {{ dataTanggalReturn }} </label>
+									
+									{% if dataReturnMingguan %}
+										<div id="returnChartContainer" style="width: 0;height: 0">
+											<canvas id="returnChart"></canvas>
+										</div>
+									{% endif %}
+
+									{% if dataCustomReturn %}
+										<div id="customReturnChartContainer" style="width: 500px;height: 280px">
+											<canvas id="customReturnChart"></canvas>
+										</div>
+									{% endif %}
 								</div>
 
 								<div id="perbandingan" 
@@ -331,6 +377,7 @@
 	<script src="{{ url_for('static', filename='visualisasi/custom-favorit-chart.js') }}"></script>
 	<script src="{{ url_for('static', filename='visualisasi/custom-omset-chart.js') }}"></script>
 	<script src="{{ url_for('static', filename='visualisasi/custom-profit-chart.js') }}"></script>
+	<script src="{{ url_for('static', filename='visualisasi/custom-return-chart.js') }}"></script>
 
 	<script>
 		var data = [];
@@ -345,17 +392,20 @@
 		var customFavChartInstance = null;
 		var customOmsetChartInstance = null;
 		var customProfitChartInstance = null;
+		var customReturnChartInstance = null;
 
 		dataPerbandingan = {{ dataPerbandingan | tojson | safe }};
 		dataCustomFavorit = {{ dataCustomFavorit | tojson | safe }};
 		dataCustomOmset = {{ dataCustomOmset | tojson | safe }};
 		dataCustomProfit = {{ dataCustomProfit | tojson | safe }};
+		dataCustomReturn = {{ dataCustomReturn | tojson | safe }};
 		
 
 		perbandinganChart(dataPerbandingan);
 		customFavoritChart(dataCustomFavorit);
 		customOmsetChart(dataCustomOmset);
 		customProfitChart(dataCustomProfit);
+		customReturnChart(dataCustomReturn);
 
 		function showSelectedDiv(value) {
 			
@@ -377,16 +427,32 @@
 
 		function selectReturnFilter(selectedValue) {
 			var ctx = document.getElementById("returnChart");
-
 			var data = [];
 			var labels = [];
-
 			var selectedDataReturn;
 
 			dataReturnMingguan = {{ dataReturnMingguan | tojson | safe }};
+			dataCustomReturn = {{ dataCustomReturn | tojson | safe }};
 
 			if (selectedValue === 'week') {
 				selectedDataReturn = dataReturnMingguan
+				document.getElementById('dateCustomReturn').style.display = 'none';
+				document.getElementById('customReturnDate').style.display = 'none';
+
+				if (customReturnChartInstance) {
+					console.log("cok2");
+					console.log("ada customReturnChartInstance");
+					customReturnChartInstance.destroy();  
+				}
+			} else if (selectedValue === 'custom') {
+				selectedDataReturn = dataCustomReturn
+				document.getElementById('dateCustomReturn').style.display = 'block';
+				document.getElementById('customReturnDate').style.display = 'block';
+				
+				if (returnChartInstance) {
+						console.log("ada returnChartInstance");
+						returnChartInstance.destroy();
+				}
 			}
 
 			selectedDataReturn.forEach(function(item) {

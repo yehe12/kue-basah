@@ -142,6 +142,24 @@ class Visualisasi:
         dataReturn= cursor.fetchall()
 
         return dataReturn
+    
+    def selectCustomReturn(self, tanggal_awal, tanggal_akhir):
+        self.tanggal_awal = tanggal_awal
+        self.tanggal_akhir = tanggal_akhir
+        
+        cursor = mysql.get_db().cursor()
+        select_query =  """ select barang.id, barang.nama_barang, SUM(pengiriman.sisa) AS total_sisa
+                            from pengiriman
+                            inner join barang on barang.id = pengiriman.id_barang
+                            WHERE DATE(pengiriman.create_at) BETWEEN %s AND %s
+                            GROUP BY barang.id
+                            ORDER BY total_sisa DESC
+                            limit 10;
+                        """
+        cursor.execute(select_query, (self.tanggal_awal, self.tanggal_akhir))
+        dataReturn= cursor.fetchall()
+
+        return dataReturn
                     
     def selectPerbandingan(self, nama_barang_a,nama_barang_b, tanggal_awal, tanggal_akhir):
         self.nama_barang_a = nama_barang_a
