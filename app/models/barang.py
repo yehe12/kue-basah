@@ -67,23 +67,7 @@ class Barang:
         self.id = id
         cursor = mysql.get_db().cursor()
         
-        # Pengecekan apakah ada referensi foreign key yang masih aktif
-        # cek_pembelian = "SELECT COUNT(*) FROM pembelian_detail WHERE id_barang = %s"
-        # cek_pengiriman = "SELECT COUNT(*) FROM pengiriman WHERE id_barang = %s"
-        
-        # cursor.execute(cek_pembelian, (self.id,))
-        # count_pembelian = cursor.fetchone()[0]
-
-        # cursor.execute(cek_pengiriman, (self.id,))
-        # count_pengiriman = cursor.fetchone()[0]
-        
-        # if count_pembelian == 0 and count_pengiriman == 0:
         delete_query = "DELETE FROM barang WHERE id=%s"
         cursor.execute(delete_query, (self.id))
         mysql.get_db().commit()
         cursor.close()
-        
-        # return count_pembelian+count_pengiriman
-        
-        # else:
-        #     return count_pembelian+count_pengiriman
