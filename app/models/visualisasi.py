@@ -74,6 +74,21 @@ class Visualisasi:
 
         return dataOmset
     
+    def selectCustomOmset(self, tanggal_awal, tanggal_akhir):
+        self.tanggal_awal = tanggal_awal
+        self.tanggal_akhir = tanggal_akhir
+
+        cursor = mysql.get_db().cursor()
+        select_query = """ SELECT date(`timestamp`), sum(uang_masuk) from pembelian
+                            WHERE DATE(timestamp) BETWEEN %s AND %s
+                            GROUP by DATE(`timestamp`)
+                            order by DATE(`timestamp`)
+                        """
+        cursor.execute(select_query, (self.tanggal_awal, self.tanggal_akhir))
+        dataCustomOmset= cursor.fetchall()
+        
+        return dataCustomOmset
+    
     def selectProfitMingguan(self):
         cursor = mysql.get_db().cursor()
         select_query =  """ select date(`timestamp`), sum(laba) from pembelian
@@ -98,6 +113,21 @@ class Visualisasi:
 
         return dataProfit
     
+    def selectCustomProfit(self, tanggal_awal, tanggal_akhir):
+        self.tanggal_awal = tanggal_awal
+        self.tanggal_akhir = tanggal_akhir
+        
+        cursor = mysql.get_db().cursor()
+        select_query =  """ select date(`timestamp`), sum(laba) from pembelian
+                            WHERE DATE(timestamp) BETWEEN %s AND %s
+                            GROUP by DATE(`timestamp`)
+                            order by DATE(`timestamp`)
+                        """
+        cursor.execute(select_query, (self.tanggal_awal, self.tanggal_akhir))
+        dataProfit = cursor.fetchall()
+
+        return dataProfit
+    
     def selectReturnMingguan(self):
         cursor = mysql.get_db().cursor()
         select_query =  """ select barang.id, barang.nama_barang, SUM(pengiriman.sisa) AS total_sisa
@@ -109,6 +139,24 @@ class Visualisasi:
                             limit 10;
                         """
         cursor.execute(select_query)
+        dataReturn= cursor.fetchall()
+
+        return dataReturn
+    
+    def selectCustomReturn(self, tanggal_awal, tanggal_akhir):
+        self.tanggal_awal = tanggal_awal
+        self.tanggal_akhir = tanggal_akhir
+        
+        cursor = mysql.get_db().cursor()
+        select_query =  """ select barang.id, barang.nama_barang, SUM(pengiriman.sisa) AS total_sisa
+                            from pengiriman
+                            inner join barang on barang.id = pengiriman.id_barang
+                            WHERE DATE(pengiriman.create_at) BETWEEN %s AND %s
+                            GROUP BY barang.id
+                            ORDER BY total_sisa DESC
+                            limit 10;
+                        """
+        cursor.execute(select_query, (self.tanggal_awal, self.tanggal_akhir))
         dataReturn= cursor.fetchall()
 
         return dataReturn
