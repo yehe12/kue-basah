@@ -57,12 +57,10 @@ def bossDataVisualisasiPerbandingan():
 
                 getPerbandingan = Visualisasi().selectPerbandingan(nama_barang_a, nama_barang_b, tanggal_awal, tanggal_akhir)
 
-                print("data ne : ", getPerbandingan)
-                
                 return render_template('menu/data_visualisasi.html', dataReturnMingguan = getReturnMingguan,
-                 dataPerbandingan = getPerbandingan, dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, 
-                 dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, dataOmsetMingguan = getOmsetMingguan, 
-                 dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan, dataCustomFavorit= "")
+                dataPerbandingan = getPerbandingan, dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, 
+                dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, dataOmsetMingguan = getOmsetMingguan, 
+                dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan, dataCustomFavorit= "")
 
         else :
             return redirect(url_for('dashboard'))
