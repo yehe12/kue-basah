@@ -74,6 +74,21 @@ class Visualisasi:
 
         return dataOmset
     
+    def selectCustomOmset(self, tanggal_awal, tanggal_akhir):
+        self.tanggal_awal = tanggal_awal
+        self.tanggal_akhir = tanggal_akhir
+
+        cursor = mysql.get_db().cursor()
+        select_query = """ SELECT date(`timestamp`), sum(uang_masuk) from pembelian
+                            WHERE DATE(timestamp) BETWEEN %s AND %s
+                            GROUP by DATE(`timestamp`)
+                            order by DATE(`timestamp`)
+                        """
+        cursor.execute(select_query, (self.tanggal_awal, self.tanggal_akhir))
+        dataCustomOmset= cursor.fetchall()
+        
+        return dataCustomOmset
+    
     def selectProfitMingguan(self):
         cursor = mysql.get_db().cursor()
         select_query =  """ select date(`timestamp`), sum(laba) from pembelian

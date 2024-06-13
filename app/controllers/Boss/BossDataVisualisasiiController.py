@@ -24,7 +24,7 @@ def bossDataVisualisasi():
             return render_template('menu/data_visualisasi.html', dataReturnMingguan = getReturnMingguan, dataPerbandingan = "", 
             dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, dataProfitMingguan = getProfitMingguan, 
             dataOmsetBulanan = getOmsetBulanan, dataOmsetMingguan = getOmsetMingguan, dataFavoritHarian=getFavoritHarian, 
-            dataFavoritMingguan=getFavoritMingguan, dataCustomFavorit = "", dataTanggalFavorit = "" )
+            dataFavoritMingguan=getFavoritMingguan, dataCustomFavorit = "", dataTanggalFavorit = "" , dataCustomOmset = "", dataTanggalOmset = "")
         
         else :
             return redirect(url_for('dashboard'))
@@ -60,7 +60,8 @@ def bossDataVisualisasiPerbandingan():
                 return render_template('menu/data_visualisasi.html', dataReturnMingguan = getReturnMingguan,
                 dataPerbandingan = getPerbandingan, dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, 
                 dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, dataOmsetMingguan = getOmsetMingguan, 
-                dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan, dataCustomFavorit= "", dataTanggalFavorit = "")
+                dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan, dataCustomFavorit= "", dataTanggalFavorit = "",
+                dataCustomOmset = "", dataTanggalOmset = "")
 
         else :
             return redirect(url_for('dashboard'))
@@ -96,7 +97,45 @@ def bossDataVisualisasiCustomFavorit():
                 return render_template('menu/data_visualisasi.html', dataReturnMingguan = getReturnMingguan, dataPerbandingan = "", 
                 dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, 
                 dataOmsetMingguan = getOmsetMingguan, dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan, 
-                dataCustomFavorit = getCustomFavorit, dataTanggalFavorit = getTanggalFavorit)
+                dataCustomFavorit = getCustomFavorit, dataTanggalFavorit = getTanggalFavorit, dataCustomOmset = "", dataTanggalOmset = "")
+        
+        else :
+            return redirect(url_for('dashboard'))
+        
+    return redirect(url_for('login'))
+
+@app.route('/data-visualisasi-omset', methods =['POST'])
+def bossDataVisualisasiCustomOmset():
+    if 'loggedin' in session:
+        if session['role'] == 1 :
+            if request.method == 'POST':
+                
+                tanggal_awal = request.form['tanggal_awal']
+                tanggal_akhir = request.form['tanggal_akhir']
+                
+                getBarang = Barang().selectBarang()
+                
+                getFavoritHarian = Visualisasi().selectFavoritHarian()
+                getFavoritMingguan = Visualisasi().selectFavoritMingguan()
+                
+                getOmsetMingguan = Visualisasi().selectOmsetMingguan()
+                getOmsetBulanan = Visualisasi().selectOmsetBulanan()
+                
+                getProfitMingguan = Visualisasi().selectProfitMingguan()
+                getProfitBulanan = Visualisasi().selectProfitBulanan()
+                
+                getReturnMingguan = Visualisasi().selectReturnMingguan()
+
+                getCustomOmset= Visualisasi().selectCustomOmset(tanggal_awal, tanggal_akhir)
+                
+                print(getCustomOmset)
+                
+                getTanggalOmset = "(" + tanggal_awal + " sampai " + tanggal_akhir + ")"
+                
+                return render_template('menu/data_visualisasi.html', dataReturnMingguan = getReturnMingguan, dataPerbandingan = "", 
+                dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, 
+                dataOmsetMingguan = getOmsetMingguan, dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan, 
+                dataCustomFavorit = "", dataTanggalFavorit = "", dataCustomOmset = getCustomOmset, dataTanggalOmset = getTanggalOmset)
 
         else :
             return redirect(url_for('dashboard'))
