@@ -79,11 +79,6 @@ def bossDataSupplierDelete(id):
             # data = 
             Supplier().deleteSupplier(id)
             
-            # if data > 0:
-            #     mesage = 'Tidak dapat menghapus supplier karena masih terdapat data Barang!'
-            #     return render_template('menu/data_supplier.html', dataSupplier=getSupplier, mesage = mesage)
-            
-            # else:
             return redirect(url_for('bossDataSupplier'))
 
         else :

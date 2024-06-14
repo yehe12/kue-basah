@@ -123,55 +123,6 @@
 
 	</div>
 	</main>
-	<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-	<script>
-		function selectFilter(selectedValue) {
-			var selectedDataTagihan;
-
-			dataTagihan = {{ dataTagihan | tojson | safe }};
-
-			if (selectedValue === 'day') {
-				selectedDataTagihan = dataTagihan
-			} else if (selectedValue === 'week') {
-			} else if (selectedValue === 'month') {
-			}
-
-			var data = [];
-			var labels = [];
-
-			selectedDataTagihan.forEach(function(item) {
-				data.push(parseInt(item[4], 10));
-				labels.push(item[2]);
-			});
-
-			console.log("data new : ", data);
-			console.log("labels new : ", labels);
-
-			const ctx = document.getElementById("myChart");
-
-			new Chart(ctx, {
-				type: "line",
-				data: {
-				labels: labels,
-				datasets: [
-					{
-					label: "# of Votes",
-					data: data,
-					borderWidth: 1,
-					},
-				],
-				},
-				options: {
-				scales: {
-					y: {
-					beginAtZero: true,
-					},
-				},
-				},
-			});
-		}
-	</script> -->
 </body>
 
 {% endblock %}
