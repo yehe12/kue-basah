@@ -113,6 +113,21 @@ class Visualisasi:
 
         return dataProfit
     
+    def selectCustomProfit(self, tanggal_awal, tanggal_akhir):
+        self.tanggal_awal = tanggal_awal
+        self.tanggal_akhir = tanggal_akhir
+        
+        cursor = mysql.get_db().cursor()
+        select_query =  """ select date(`timestamp`), sum(laba) from pembelian
+                            WHERE DATE(timestamp) BETWEEN %s AND %s
+                            GROUP by DATE(`timestamp`)
+                            order by DATE(`timestamp`)
+                        """
+        cursor.execute(select_query, (self.tanggal_awal, self.tanggal_akhir))
+        dataProfit = cursor.fetchall()
+
+        return dataProfit
+    
     def selectReturnMingguan(self):
         cursor = mysql.get_db().cursor()
         select_query =  """ select barang.id, barang.nama_barang, SUM(pengiriman.sisa) AS total_sisa
