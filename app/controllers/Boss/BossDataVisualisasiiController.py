@@ -21,7 +21,10 @@ def bossDataVisualisasi():
             
             getReturnMingguan = Visualisasi().selectReturnMingguan()
             
-            return render_template('menu/data_visualisasi.html', dataReturnMingguan = getReturnMingguan, dataPerbandingan = "", dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, dataOmsetMingguan = getOmsetMingguan, dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan)
+            return render_template('menu/data_visualisasi.html', dataReturnMingguan = getReturnMingguan, dataPerbandingan = "", 
+            dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, dataProfitMingguan = getProfitMingguan, 
+            dataOmsetBulanan = getOmsetBulanan, dataOmsetMingguan = getOmsetMingguan, dataFavoritHarian=getFavoritHarian, 
+            dataFavoritMingguan=getFavoritMingguan, dataCustomFavorit = "")
         
         else :
             return redirect(url_for('dashboard'))
@@ -56,7 +59,44 @@ def bossDataVisualisasiPerbandingan():
 
                 print("data ne : ", getPerbandingan)
                 
-                return render_template('menu/data_visualisasi.html', dataReturnMingguan = getReturnMingguan, dataPerbandingan = getPerbandingan, dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, dataOmsetMingguan = getOmsetMingguan, dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan)
+                return render_template('menu/data_visualisasi.html', dataReturnMingguan = getReturnMingguan,
+                 dataPerbandingan = getPerbandingan, dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, 
+                 dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, dataOmsetMingguan = getOmsetMingguan, 
+                 dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan, dataCustomFavorit= "")
+
+        else :
+            return redirect(url_for('dashboard'))
+        
+    return redirect(url_for('login'))
+
+@app.route('/data-visualisasi-favorit', methods =['POST'])
+def bossDataVisualisasiCustomFavorit():
+    if 'loggedin' in session:
+        if session['role'] == 1 :
+            if request.method == 'POST':
+                
+                tanggal_awal = request.form['tanggal_awal']
+                tanggal_akhir = request.form['tanggal_akhir']
+                
+                getBarang = Barang().selectBarang()
+            
+                getFavoritHarian = Visualisasi().selectFavoritHarian()
+                getFavoritMingguan = Visualisasi().selectFavoritMingguan()
+                
+                getOmsetMingguan = Visualisasi().selectOmsetMingguan()
+                getOmsetBulanan = Visualisasi().selectOmsetBulanan()
+                
+                getProfitMingguan = Visualisasi().selectProfitMingguan()
+                getProfitBulanan = Visualisasi().selectProfitBulanan()
+                
+                getReturnMingguan = Visualisasi().selectReturnMingguan()
+
+                getCustomFavorit= Visualisasi().selectCustomFavorit(tanggal_awal, tanggal_akhir)
+                
+                return render_template('menu/data_visualisasi.html', dataReturnMingguan = getReturnMingguan, dataPerbandingan = "", 
+                dataBarang = getBarang, dataProfitBulanan = getProfitBulanan, dataProfitMingguan = getProfitMingguan, dataOmsetBulanan = getOmsetBulanan, 
+                dataOmsetMingguan = getOmsetMingguan, dataFavoritHarian=getFavoritHarian, dataFavoritMingguan=getFavoritMingguan, 
+                dataCustomFavorit = getCustomFavorit)
 
         else :
             return redirect(url_for('dashboard'))

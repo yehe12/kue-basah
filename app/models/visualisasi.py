@@ -32,6 +32,24 @@ class Visualisasi:
 
         return dataFavorit
     
+    def selectCustomFavorit(self, tanggal_awal, tanggal_akhir):
+        self.tanggal_awal = tanggal_awal
+        self.tanggal_akhir = tanggal_akhir
+
+        cursor = mysql.get_db().cursor()
+        select_query = """ SELECT id_barang, barang.nama_barang, SUM(qty) AS total_qty
+                            FROM pembelian_detail inner join barang on pembelian_detail.id_barang = barang.id
+
+                            WHERE DATE(pembelian_detail.create_at) BETWEEN %s AND %s
+                            GROUP BY id_barang
+                            ORDER BY total_qty DESC
+                            limit 5;
+                        """
+        cursor.execute(select_query, (self.tanggal_awal, self.tanggal_akhir))
+        dataCustomFavorit= cursor.fetchall()
+        
+        return dataCustomFavorit
+    
     def selectOmsetMingguan(self):
         cursor = mysql.get_db().cursor()
         select_query =  """ select date(`timestamp`), sum(uang_masuk) from pembelian
@@ -113,4 +131,3 @@ class Visualisasi:
         dataPerbandingan= cursor.fetchall()
         
         return dataPerbandingan
-
