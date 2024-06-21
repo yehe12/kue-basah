@@ -105,6 +105,7 @@
 											</form>
 										</div>
 									</div>
+									<label id="dateCustom" class=" mb-2 ml-8 font-bold text-xs text-slate-700"> {{ dataTanggalFavorit }} </label>
 									
 									{% if dataFavoritMingguan %}
 										<div id="favChartContainer" style="width: 0;height: 0">
@@ -113,7 +114,7 @@
 									{% endif %}
 
 									{% if dataCustomFavorit %}
-										<div id="customFavChartContainer" style="width: 500px;height: 280px bg-red-400">
+										<div id="customFavChartContainer" style="width: 500px;height: 280px">
 											<canvas id="customFavChart"></canvas>
 										</div>
 									{% endif %}
@@ -246,8 +247,11 @@
 		var returnChartInstance = null;
 		var perbandinganChartInstance = null;
 
+		var customFavChartInstance = null;
+
 		dataPerbandingan = {{ dataPerbandingan | tojson | safe }};
 		dataCustomFavorit = {{ dataCustomFavorit | tojson | safe }};
+		dataTanggalFavorit = {{ dataTanggalFavorit | tojson | safe }};
 
 		perbandinganChart(dataPerbandingan)
 		customFavoritChart(dataCustomFavorit);
@@ -280,7 +284,7 @@
 
 			dataReturnMingguan = {{ dataReturnMingguan | tojson | safe }};
 
-			if (selectedDataReturn === 'week') {
+			if (selectedValue === 'week') {
 				selectedDataReturn = dataReturnMingguan
 			}
 
@@ -504,15 +508,21 @@
 				document.getElementById('customFavDate').style.display = 'none';
 			} else if (selectedValue === 'week') {
 				selectedDataTagihan = dataFavoritMingguan
+
+				if (customFavChartInstance) {
+					console.log("ada customFavChartInstance");
+					customFavChartInstance.destroy();
+				}
+				document.getElementById('dateCustom').style.display = 'none';
 				document.getElementById('customFavDate').style.display = 'none';
 			} else if (selectedValue === 'custom') {
 				selectedDataTagihan = dataCustomFavorit
-				
 
 				if (favChartInstance) {
 					console.log("ada favChartInstance");
 					favChartInstance.destroy();
 				}
+				document.getElementById('dateCustom').style.display = 'block';
 				document.getElementById('customFavDate').style.display = 'block';
 			}
 

@@ -13,7 +13,7 @@ function customFavoritChart(dataCustomFavorit) {
             labels.push(item[1]);
         });
 
-        favChartInstance = new Chart(ctxCustomFav, {
+        customFavChartInstance = new Chart(ctxCustomFav, {
             type: "bar",
             data: {
                 labels: labels,
